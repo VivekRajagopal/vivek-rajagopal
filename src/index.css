@@ -87,12 +87,10 @@ code {
 
 a {
   color: #06f;
-  text-decoration: none;
 }
 
 a:hover {
   color: #f03;
-  text-decoration: underline;
 }
 
 table {
