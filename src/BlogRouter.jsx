@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import {Route, Switch} from 'react-router-dom';
 import RenderedMarkdown from './RenderedMarkdown';
 
-const BlogMain = () => <RenderedMarkdown path={`/page-data/blog.md`}/>
-const BlogView = ({match}) => <RenderedMarkdown path={`/page-data/blog-${match.params.blogId}.md`}/>
+const BlogMain = () => <RenderedMarkdown path={`/page-data/blog.md`} className=""/>
+const BlogView = ({match}) => <RenderedMarkdown path={`/page-data/blog/${match.params.blogId}.md`} className=""/>
 
 const BlogRouter = ({match}) => {
     return (
-        <div>            
+        <Fragment>            
             <Route exact path={match.path} component={BlogMain}/>
             <Route path={`${match.path}/:blogId`} component={BlogView} />
-        </div>
+        </Fragment>
     )
 }
 

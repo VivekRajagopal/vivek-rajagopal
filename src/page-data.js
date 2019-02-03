@@ -1,12 +1,14 @@
 const Pages = [
-    "/page-data/home.md",
-    "/page-data/about.md",
-    "/page-data/blog.md",
-    "/page-data/blog-blog-zero.md",
-    "/page-data/blog-markdown-blogup.md",
-    "/page-data/blog-test.md",
-    "/page-data/demo.md"
-]
+    "home.md",
+    "about.md",
+    "blog.md",
+    "blog/blog-zero.md",
+    "blog/markdown-blogup.md",
+    "blog/dime-for-time.md",
+    "blog/test.md",
+    "demo.md",
+    "cv.md",
+].map(el => "/page-data/" + el);
 
 /*
 const doesPageExist = pageName => {

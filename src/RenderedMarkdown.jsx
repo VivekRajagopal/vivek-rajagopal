@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import MarkdownIt from 'markdown-it';
 import Loader from './Loader';
 
@@ -27,8 +27,8 @@ class RenderedMarkdown extends Component {
 
     render() {
         return (this.state.markdown ? 
-            <div className={this.props.className} dangerouslySetInnerHTML={{__html: md.render(this.state.markdown)}}></div> :
-            <div></div>
+            <div className={`${this.props.className} content`} dangerouslySetInnerHTML={{__html: md.render(this.state.markdown)}}></div> :
+            <Fragment></Fragment>
         );
     }
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Fragment} from "react";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 
 import routes from "./routes";
@@ -20,7 +20,7 @@ const Routes = () =>
   ));
 
 const Page404  = ({ location }) => (
-  <div className="route-body">
+  <div className="content">
     <h1>Yikes...</h1>
     <p>Couldn't find <code>{location.pathname}</code></p>
   </div>
@@ -38,12 +38,10 @@ class App extends React.Component {
     <Router>
       <div className="router-body">
         <Navbar />
-        <div className="content" >
           <Switch>
-          {Routes()}
-          <Route component={Page404} />
+            {Routes()}
+            <Route component={Page404} />
           </Switch>
-        </div>
         <Footer/>
       </div>
     </Router>
