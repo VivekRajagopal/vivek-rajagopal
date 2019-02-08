@@ -13,11 +13,9 @@
 @font-face {
   font-family: 'Roboto';
   font-style: normal;
-  font-weight: 700;
-  src: local('Roboto Bold'), local('Roboto-Bold'), url(https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmWUlfChc4EsA.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
-    U+FEFF, U+FFFD;
+  font-weight: 500;
+  src: local('Roboto Medium'), local('Roboto-Medium'), url(https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmEU9fBBc4.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 html {
@@ -120,19 +118,24 @@ table {
 }
 
 thead {
-  border-bottom: 2px solid #666;
-  font-weight: normal;
+  border-bottom: 2px solid #666;  
 }
 
 tr {
-  transition: 100ms all ease-in;
+  transition: 60ms all ease-in;
 }
 
 tr:hover {
   background-color: #eee;
 }
 
+th {
+  font-weight: 500;
+  font-size: 112.5%;
+}
+
 td {
   padding: 0.8rem 1rem 0.8rem;
   border-bottom: 1px solid #aaa;
+  text-align: center;
 }

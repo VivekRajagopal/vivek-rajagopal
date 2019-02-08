@@ -64,11 +64,11 @@ h1, h2, h3 {
 }
 
 .note-item-container {
-    background-color: rgb(255, 255, 146);
-    border: 1px solid rgb(214, 214, 98);
-    min-height: 2rem;
-    margin-bottom: 2px;
-    padding: 10px;
+    background-color: #ddd;
+    color: #666;
+    border-radius: 0.2rem;
+    margin: 0.2rem;
+    padding: 0.5rem;
 
     display: flex;
     align-content: stretch;
@@ -85,8 +85,7 @@ h1, h2, h3 {
 }
 
 .note-item-container:hover {
-    background-color: rgb(255, 255, 85);
-    color: black;
+    background-color: #ff9;
 }
 
 .note-item-droptarget {
@@ -181,4 +180,8 @@ input[type='text']:hover {
 
 input[type='text']:focus {
     background-color: hsl(32, 100%, 90%);
+}
+
+a {
+    color: #06f;
 }

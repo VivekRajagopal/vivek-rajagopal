@@ -4,14 +4,12 @@ import Loader from './Loader';
 
 import {getPageData, doesPageExist} from './page-data';
 
-
-
 const md = new MarkdownIt();
 const errorPage = '/page-data/error.md';
 
 class RenderedMarkdown extends Component {
     state = {
-        markdown: null
+        markdown: ""
     }
 
     componentDidMount() {
@@ -26,10 +24,7 @@ class RenderedMarkdown extends Component {
         } 
 
     render() {
-        return (this.state.markdown ? 
-            <div className={`${this.props.className} content`} dangerouslySetInnerHTML={{__html: md.render(this.state.markdown)}}></div> :
-            <Fragment></Fragment>
-        );
+        return <div className={`${this.props.className} content`} dangerouslySetInnerHTML={{__html: md.render(this.state.markdown)}}/>
     }
 }
 

@@ -42,10 +42,22 @@
   flex-direction: column;
   flex-grow: 1;
   padding-bottom: 4rem;
+  animation: fadeIn 120ms ease-in-out;
+}
+
+/*Necessary feature*/
+@keyframes fadeIn {
+  0% {
+    opacity: 0.25;
+  }
+
+  100% {
+    opacity: 1.00;
+  }
 }
 
 .footer {
-  border-top: 2px solid #f03; 
+  border-top: 2px solid #f03;
   color: #666;
 
   font-size: 0.9rem;
