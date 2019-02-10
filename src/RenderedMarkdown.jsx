@@ -1,8 +1,7 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import MarkdownIt from 'markdown-it';
-import Loader from './Loader';
 
-import {getPageData, doesPageExist} from './page-data';
+import {doesPageExist} from './page-data';
 
 const md = new MarkdownIt();
 const errorPage = '/page-data/error.md';
@@ -24,7 +23,7 @@ class RenderedMarkdown extends Component {
         } 
 
     render() {
-        return <div className={`${this.props.className} content`} dangerouslySetInnerHTML={{__html: md.render(this.state.markdown)}}/>
+        return <div className={`${this.props.className} content ${this.state.markdown ? 'fade-in' : ''}`} dangerouslySetInnerHTML={{__html: md.render(this.state.markdown)}}/>
     }
 }
 

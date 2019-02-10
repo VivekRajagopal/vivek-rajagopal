@@ -1,5 +1,5 @@
-import React, { Component, Fragment } from 'react';
-import {Route, Switch} from 'react-router-dom';
+import React, { Fragment } from 'react';
+import {Route, } from 'react-router-dom';
 import RenderedMarkdown from './RenderedMarkdown';
 
 const BlogMain = () => <RenderedMarkdown path={`/page-data/blog.md`} className=""/>

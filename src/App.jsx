@@ -1,4 +1,4 @@
-import React, {Fragment} from "react";
+import React from "react";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 
 import routes from "./routes";
@@ -19,14 +19,14 @@ const Routes = () =>
     <Route key={route.path} path={route.path} exact={route.exact} component={route.component} />
   ));
 
-const Page404  = ({ location }) => (
-  <div className="content">
+const Page404 = ({ location }) => (
+  <div className="content fade-in">
     <h1>Yikes...</h1>
     <p>Couldn't find <code>{location.pathname}</code></p>
   </div>
 );
 
-const Footer = () => 
+const Footer = () =>
   <div className="footer">
     Created by Vivek Rajagopal
   </div>
@@ -38,11 +38,11 @@ class App extends React.Component {
     <Router>
       <div className="router-body">
         <Navbar />
-          <Switch>
-            {Routes()}
-            <Route component={Page404} />
-          </Switch>
-        <Footer/>
+        <Switch>
+          {Routes()}
+          <Route component={Page404} />
+        </Switch>
+        <Footer />
       </div>
     </Router>
   );

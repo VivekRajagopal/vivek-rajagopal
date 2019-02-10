@@ -38,10 +38,13 @@
 }
 
 .content {
-  display: flex;
-  flex-direction: column;
   flex-grow: 1;
   padding-bottom: 4rem;
+  visibility: hidden;
+}
+
+.fade-in {
+  visibility: visible;
   animation: fadeIn 120ms ease-in-out;
 }
 

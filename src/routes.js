@@ -1,5 +1,4 @@
 import React from 'react';
-import {doesPageExist} from './page-data';
 
 import './Landing.css';
 
@@ -14,7 +13,7 @@ const routes = [
     {path: '/', exact: true, name: 'Home', component: RenderedHome},
     {path: '/blog', exact: false, name: 'Blog', component: BlogRouter},
     {path: '/demo', exact: false, name: 'Demos', component: DemoRouter},
-    {path: '/about', exact: false, name: 'About', component: RenderedAbout},
+    {path: '/about', exact: true, name: 'About', component: RenderedAbout},
 ]
 
 export default routes;

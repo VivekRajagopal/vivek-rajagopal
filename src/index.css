@@ -36,11 +36,6 @@ body {
   color: #333;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
 h1,
 h2,
 h3 {
@@ -58,6 +53,7 @@ p {
 
 strong, em {
   font-size: 1.05rem;
+  font-weight: 500;
 }
 
 #root {
@@ -96,7 +92,7 @@ code {
 }
 
 pre code {
-  font-size: 0.8rem;
+  font-size: 80%;
   color: #036;
   cursor: default;
 }
