@@ -1,12 +1,15 @@
 # Todo App made with [insert framework]
-Todo app tutorials are everywhere! They're a nice starting point in trying to learn the basics of a particular framework or language. It combines user input and state and view management - and you make something *useful!* 
 
-So of course... I needed to make [my own](/demo-builds/react-noteapp)!
+Todo app tutorials are everywhere! They're a nice starting point in trying to learn the basics of a particular framework or language. It combines user input and state and view management - and you make something *useful!*
+
+So of course... I needed to make [my own](/demo-builds/react-noteapp/index.html)!
 
 ## Something useful
+
 I deviated slightly from making a 'todo' app, to making a 'note taking' app. Kind of a like a very light version of [Trello](https://trello.com). I like Trello and use it frequently to plan out my projects and break them down into set features or tasks. But sometimes I think its too rigid in its representation of tasks and task lists. I wanted to view my tasks in a timeline, or as a Gantt chart... and yes there are other apps out there that do this and they come with more time investment required by the user.
 
 ## The Features
+
 For some reason I really wanted drag-and-drop (like Trello does). Being able to freely and easily reorder tasks, or *notes* in this case, gives the app a layer of interactivity and becomes more of a virtual representation of its analog counterpart. So this was the initial feature list;
 
 1. Create notes through a simple text input form
@@ -17,7 +20,8 @@ For some reason I really wanted drag-and-drop (like Trello does). Being able to 
 
 With these features I could mostly replace note taking by hand. The idea was to use this at work to keep track of where each project or little task was at - and have it all accessible in one place. And so, it would hopefully be a worthwhile app to make and use.
 
-## The Hard Part
+## The Tricky Part
+
 Features 1 to 3 were fairly easy to implement. The main app stores the list of notes in its state, and child components have reference to this state via props, including functions to modify the state. This was the final outline of the app components;
 
     App
@@ -42,4 +46,4 @@ I found working on this fairly comfortable after taking on my [Dime-for-Time](/b
 3. Toggle view between notes and list
 4. Multiple Note Boards... (might go back to using Trello at this point)
 
-Thanks for reading 🙂 - check out the [demo](/demo-builds/react-noteapp)
+Thanks for reading 🙂 - check out the [demo](/demo-builds/react-noteapp/index.html)

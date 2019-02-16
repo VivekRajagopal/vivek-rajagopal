@@ -1,26 +1,35 @@
 .landing {
-    text-align: center;
-    font-size: 125%;
-    height: 100%;    
-    display: flex;
-    flex-grow: 1;
-    flex-direction: column;
-    justify-content: center;
-    cursor: default;
+  text-align: center;
+  font-size: 125%;
+  height: 100%;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: center;
+  cursor: default;
+}
+
+.landing h1 {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .landing h1:active {
-    cursor: default;
-    animation: shake 150ms ease-in-out infinite;
+  cursor: default;
+  animation: shake 280ms ease-out infinite;
 }
 
 @keyframes shake {
-    0%, 100% {     
-    }
-    
-    50% {
-      transform: rotate(1deg);
-      filter: hue-rotate(30deg);
-    }
-  }
 
+  0%,
+  100% {}
+
+  20% {
+    transform: rotate(1deg);
+    filter: hue-rotate(30deg) brightness(5);
+  }
+}
