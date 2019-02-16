@@ -6,22 +6,21 @@
     flex-grow: 1;
     flex-direction: column;
     justify-content: center;
+    cursor: default;
 }
 
-.landing h1:hover {
+.landing h1:active {
     cursor: default;
-    animation: shake 150ms ease-in-out alternate;
+    animation: shake 150ms ease-in-out infinite;
 }
 
 @keyframes shake {
-    0%, 100% {
-      transform: rotate(0.8deg);      
+    0%, 100% {     
     }
     
     50% {
-      transform: rotate(-0.8deg);
-      color: #f69;
-      text-shadow: 0px 0px 2px #999;
+      transform: rotate(1deg);
+      filter: hue-rotate(30deg);
     }
   }
 

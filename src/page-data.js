@@ -5,6 +5,7 @@ const Pages = [
     "blog/blog-zero.md",
     "blog/markdown-blogup.md",
     "blog/dime-for-time.md",
+    "blog/react-noteapp.md",
     "blog/test.md",
     "demo.md",
     "cv.md",
