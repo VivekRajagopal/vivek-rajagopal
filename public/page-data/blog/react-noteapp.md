@@ -1,8 +1,8 @@
-# Todo App made with [insert framework]
+# Todo App made with <JSFramework/>
 
 Todo app tutorials are everywhere! They're a nice starting point in trying to learn the basics of a particular framework or language. It combines user input and state and view management - and you make something *useful!*
 
-So of course... I needed to make [my own](/demo-builds/react-noteapp/index.html)!
+So of course... I needed to make [my own](https://github.com/react-dnd/react-dnd)!
 
 ## Something useful
 
@@ -41,9 +41,15 @@ And that's it! 🙌
 I found working on this fairly comfortable after taking on my [Dime-for-Time](/blog/dime-for-time) Timesheet App project. Not just in using React, but also styling with CSS - its all just flexboxes 😛. I'd also like to use [Firebase](https://firebase.google.com) again to allow users to have their notes saved online.
 
 ## Future Planned Features
+
 1. Save notes online
-2. Search feature
+2. ~~Search feature~~
 3. Toggle view between notes and list
 4. Multiple Note Boards... (might go back to using Trello at this point)
 
-Thanks for reading 🙂 - check out the [demo](/demo-builds/react-noteapp/index.html)
+Thanks for reading 🙂 - check out the [demo](https://react-noteapp.surge.sh)
+
+---
+## Bugs 🐞
+
+I use Firefox to test my work at home... and it didn't take long to run into a major bug with the Drag and Drop out in the real world. It works a little differently on Chrome (and in fact each browser has a slightly different implementation of the Drag and Drop API). I will probably look at using Drag and Drop library to get uniform cross-browser DnD behaviour such as [React DnD](https://github.com/react-dnd/react-dnd).
