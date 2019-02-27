@@ -56,8 +56,8 @@ p {
 
 strong,
 em {
-  font-size: 1.05rem;
   font-weight: 500;
+  color: #222;
 }
 
 #root {
@@ -67,38 +67,24 @@ em {
   align-items: center;
 }
 
-@media (max-width: 900px) {
-  #root {
-    width: 75%;
-  }
-
-  h1 {
-    font-size: 2.0rem;
-  }
-}
-
-@media (max-width: 600px) {
-  #root {
-    width: 90%;
-  }
-
-}
-
 pre {
   background-color: #eee;
   padding: 0.5rem 1.5rem 0.5rem;
   border-left: 2px solid #06f;
+  
+  overflow: hidden;
 }
 
 code {
   font-family: "Consolas", "Courier New", Courier, monospace;
   color: #666;
+  
 }
 
 pre code {
   font-size: 100%;
   color: #036;
-  cursor: default;
+  cursor: default;  
 }
 
 a {
@@ -137,4 +123,26 @@ th {
 td {
   padding: 1.2rem 0.8rem 1.2rem;
   border-bottom: 1px solid #aaa;
+}
+
+
+
+@media (max-width: 900px) {
+  #root {
+    width: 75%;
+  }
+
+  h1 {
+    font-size: 2.0rem;
+  }
+}
+
+@media (max-width: 600px) {
+  #root {
+    width: 90%;
+  }
+
+  body {
+    font-size: 80%;
+  }
 }

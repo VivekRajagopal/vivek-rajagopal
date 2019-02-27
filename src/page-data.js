@@ -1,5 +1,5 @@
 const Pages = [
-    "home.md",
+    "landing.md",
     "about.md",
     "blog.md",
     "blog/blog-zero.md",

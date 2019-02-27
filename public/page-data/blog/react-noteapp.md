@@ -1,8 +1,8 @@
-# Todo App made with <JSFramework/>
+# Todo App made with `<JSFramework/>`
 
 Todo app tutorials are everywhere! They're a nice starting point in trying to learn the basics of a particular framework or language. It combines user input and state and view management - and you make something *useful!*
 
-So of course... I needed to make [my own](https://github.com/react-dnd/react-dnd)!
+So of course... I needed to make [my own](https://react-noteapp.surge.sh)!
 
 ## Something useful
 
@@ -50,6 +50,6 @@ I found working on this fairly comfortable after taking on my [Dime-for-Time](/b
 Thanks for reading 🙂 - check out the [demo](https://react-noteapp.surge.sh)
 
 ---
-## Bugs 🐞
+## 🐞 Uh oh... 
 
 I use Firefox to test my work at home... and it didn't take long to run into a major bug with the Drag and Drop out in the real world. It works a little differently on Chrome (and in fact each browser has a slightly different implementation of the Drag and Drop API). I will probably look at using Drag and Drop library to get uniform cross-browser DnD behaviour such as [React DnD](https://github.com/react-dnd/react-dnd).

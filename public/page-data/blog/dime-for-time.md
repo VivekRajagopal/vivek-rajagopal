@@ -1,6 +1,6 @@
 # Dime for Time
 
-I had a functional time-sheet written up in Excel that I use at work. It had a sprinkling of VBA scripting behind the scenes to make it even easier to use. But... this is not a story about settling for *functional*. In this blog post I'm going to briefly breakdown my attempt at creating a basic online Timesheet App, which is online at [timesheet.vivekr.app](https://timesheet.vivekr.app)!
+I had a functional time-sheet written up in Excel that I use at work. It had a sprinkling of VBA scripting behind the scenes to make it even easier to use. But... this is not a story about settling for *functional*. In this blog post I'm going to briefly breakdown my attempt at creating a basic online Timesheet App, which is online at [timesheet.thinkingk.app](https://timesheet.thinkingk.app)!
 
 ## Which framework/stack?
 

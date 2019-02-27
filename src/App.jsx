@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, NavLink, Route, Switch } from "react-router-dom";
 
 import routes from "./routes";
 import "./App.css";
@@ -7,9 +7,9 @@ import "./App.css";
 const Navbar = () => (
   <div className="navbar-cont">
     {routes.map(route => (
-      <Link key={route.path} className="navbar-link" to={route.path}>
-        {route.name}
-      </Link>
+      <NavLink key={route.path} exact className="navbar-link" activeClassName="navbar-link-active" to={route.path}>
+        <span>{route.iconName} {route.name}</span>
+      </NavLink>
     ))}
   </div>
 );
@@ -36,7 +36,7 @@ class App extends React.Component {
 
   render = () => (
     <Router>
-      <div className="router-body">
+      <div className="router-body" onTouchMove={ev => console.log(ev)}>
         <Navbar />
         <Switch>
           {Routes()}
