@@ -5,6 +5,9 @@ I started programming in high school and over the years software development has
 
 I intend to link my blog articles and coding demos here (usually a blog for each demo, or vice-versa).
 
-You can download my CV here: [Vivek Rajagopal - CV](https://www.dropbox.com/s/a1upuumsnoho7l0/VivekRajagopal_CV.pdf?dl=1)
+You can see an online version of my [CV](/cv). 
 
 Thanks for reading, check out my [blog](/blog)!
+
+[![](https://image.flaticon.com/icons/svg/25/25231.svg)](https://github.com/VivekRajagopal) 
+[![](https://image.flaticon.com/icons/svg/34/34405.svg)](https://www.linkedin.com/in/vivek-rajagopal-0a60ab9b/)

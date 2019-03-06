@@ -1,0 +1,33 @@
+@font-face {
+    font-family: 'fontello';
+    src: url('/icons/fontello.eot?51951708');
+    src: url('/icons/fontello.eot?51951708#iefix') format('embedded-opentype'),
+        url('/icons/fontello.woff?51951708') format('woff'),
+        url('/icons/fontello.ttf?51951708') format('truetype'),
+        url('/icons/fontello.svg?51951708#fontello') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.font-icon {
+    font-family: "fontello";
+    font-style: normal;
+    font-weight: normal;
+    speak: none;
+}
+
+.icon-home::after {
+    content: '\e800';
+}
+
+.icon-blog::after {
+    content: '\e801';
+}
+
+.icon-demo::after {
+    content: '\f121';
+}
+
+.icon-about::after {
+    content: '\e802';
+}

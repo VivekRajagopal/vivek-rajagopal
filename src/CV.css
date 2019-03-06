@@ -1,0 +1,21 @@
+.cv {
+    width: 80%;
+    margin: 3em 0em;
+    padding: 0em 3em;
+    align-self: center;
+    border: 2px solid #ddd;
+    border-radius: 2px;
+
+    color: #000;
+}
+
+.cv h2, .cv h3 {
+    color: #f03;
+}
+
+.cv > h1 {
+    color: #f03;
+    font-size: 350%;
+    text-align: center;
+}
+

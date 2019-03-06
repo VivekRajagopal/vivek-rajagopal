@@ -125,8 +125,6 @@ td {
   border-bottom: 1px solid #aaa;
 }
 
-
-
 @media (max-width: 900px) {
   #root {
     width: 75%;

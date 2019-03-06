@@ -9,7 +9,6 @@
   align-items: center;
   cursor: default;
 
-  margin: 4rem;
 }
 
 .landing h1 {
@@ -36,15 +35,4 @@
     transform: translateY(-3px);
     filter: hue-rotate(-20deg);
   }
-}
-
-.landing img {
-  margin: 1rem;
-  height: 3rem;
-  width: 3rem;
-  opacity: 0.75;
-}
-
-.landing img:hover {
-  opacity: 1.0;
 }

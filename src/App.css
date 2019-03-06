@@ -44,6 +44,17 @@
   visibility: hidden;
 }
 
+.content img {
+  margin: 1rem;
+  height: 3rem;
+  width: 3rem;
+  opacity: 0.75;
+}
+
+.content img:hover {
+  opacity: 1.0;
+}
+
 .fade-in {
   visibility: visible;
   animation: fadeIn 120ms ease-in-out;
@@ -75,8 +86,10 @@
 
 @media (max-width: 600px) {
   .navbar-link {
-    padding: 0.5rem;
-  
-    flex: 1 1;
+    font-size: 150%;
+  }
+
+  .navbar-link-name {
+    display: none;
   }
 }

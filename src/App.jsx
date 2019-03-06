@@ -3,12 +3,14 @@ import { BrowserRouter as Router, NavLink, Route, Switch } from "react-router-do
 
 import routes from "./routes";
 import "./App.css";
+import "./FontIcon.css";
 
 const Navbar = () => (
   <div className="navbar-cont">
-    {routes.map(route => (
+    {routes.filter(route => !route.navHide).map(route => (
       <NavLink key={route.path} exact className="navbar-link" activeClassName="navbar-link-active" to={route.path}>
-        <span>{route.iconName} {route.name}</span>
+        <i className={`font-icon ${route.icon}`}></i>
+        <span className="navbar-link-name"> {route.name}</span>
       </NavLink>
     ))}
   </div>
@@ -36,8 +38,8 @@ class App extends React.Component {
 
   render = () => (
     <Router>
-      <div className="router-body" onTouchMove={ev => console.log(ev)}>
-        <Navbar />
+      <div className="router-body">
+        <Route component={Navbar} />
         <Switch>
           {Routes()}
           <Route component={Page404} />
