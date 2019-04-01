@@ -1,4 +1,6 @@
 import React from "react";
+import ReactGA from 'react-ga';
+
 import { BrowserRouter as Router, NavLink, Route, Switch } from "react-router-dom";
 
 import routes from "./routes";
@@ -34,14 +36,17 @@ const Footer = () =>
   </div>
 
 class App extends React.Component {
-  componentDidMount = () => (window.document.title = "Vivek Rajagopal");
+  componentDidMount = () => {
+    window.document.title = "Vivek Rajagopal";
+  }
+    
 
   render = () => (
     <Router>
       <div className="router-body">
         <Route component={Navbar} />
         <Switch>
-          {Routes()}
+          {Routes(this.ReactGA)}
           <Route component={Page404} />
         </Switch>
         <Footer />
