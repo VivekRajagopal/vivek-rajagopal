@@ -23,7 +23,7 @@ class RenderedMarkdown extends Component {
         } 
 
     render() {
-        return <div className={`${this.props.className} content ${this.state.markdown ? 'fade-in' : ''}`} dangerouslySetInnerHTML={{__html: md.render(this.state.markdown)}}/>
+        return <div className={`${this.props.className} ${this.state.markdown ? 'fade-in' : ''}`} dangerouslySetInnerHTML={{__html: md.render(this.state.markdown)}}/>
     }
 }
 

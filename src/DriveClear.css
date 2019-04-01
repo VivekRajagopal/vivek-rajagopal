@@ -1,0 +1,19 @@
+.driveclear {
+
+    color: #000;
+}
+
+.driveclear h2, .driveclear h3 {
+    color: #039;
+}
+
+.driveclear > h1 {
+    color: #06f;
+    text-align: center;
+}
+
+.driveclear img {
+    width: 100%;
+    height: auto;
+}
+

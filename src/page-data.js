@@ -6,9 +6,11 @@ const Pages = [
     "blog/markdown-blogup.md",
     "blog/dime-for-time.md",
     "blog/react-noteapp.md",
+    "blog/vehicle-clearance.md",
     "blog/test.md",
     "demo.md",
     "cv.md",
+    "driveclear.md"
 ].map(el => "/page-data/" + el);
 
 /*

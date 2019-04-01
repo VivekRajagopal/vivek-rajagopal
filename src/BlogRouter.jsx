@@ -2,8 +2,10 @@ import React, { Fragment } from 'react';
 import {Route, } from 'react-router-dom';
 import RenderedMarkdown from './RenderedMarkdown';
 
+import "./BlogView.css";
+
 const BlogMain = () => <RenderedMarkdown path={`/page-data/blog.md`} className=""/>
-const BlogView = ({match}) => <RenderedMarkdown path={`/page-data/blog/${match.params.blogId}.md`} className=""/>
+const BlogView = ({match}) => <RenderedMarkdown path={`/page-data/blog/${match.params.blogId}.md`} className="blog"/>
 
 const BlogRouter = ({match}) => {
     return (
