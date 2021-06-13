@@ -1,0 +1,24 @@
+body {
+  align-self: center;
+  border-radius: 3px;
+  text-align: justify;
+  font-size: 90%;
+}
+
+.cv h2:not(:first-of-type) {
+  margin-top: 4rem;
+}
+
+.cv h4 {
+  margin-bottom: 0.5rem;
+}
+
+.cv > ul {
+  list-style-type: square;
+  margin-left: -1rem;
+}
+
+.cv p,
+.cv ul {
+  color: #444;
+}

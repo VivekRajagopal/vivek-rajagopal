@@ -1,0 +1,60 @@
+@import "../styles/theme";
+
+.navbar-container {
+  color: white;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+  justify-content: space-around;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  background-color: white;
+}
+
+.navbar-link {
+  border-bottom: 2px solid transparentize($primary, 0.6);
+  color: black;
+  padding: 15px;
+  text-align: center;
+  text-decoration: none;
+
+  flex: 1 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  * {
+    margin: 0;
+  }
+
+  &.active,
+  &:hover {
+    border-bottom: 2px solid $primary;
+    color: $primary;
+  }
+
+  > svg {
+    height: 1.5rem;
+    margin-right: 0.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar-link {
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem;
+
+    > svg {
+      size: 1.2rem;
+      margin: 0;
+      font-size: 150%;
+    }
+  }
+
+  .navbar-link-name {
+    font-size: 90%;
+  }
+}

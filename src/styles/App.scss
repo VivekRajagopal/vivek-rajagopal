@@ -1,0 +1,65 @@
+@import "theme";
+
+.router-body {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.content {
+  flex-grow: 1;
+  visibility: hidden;
+  margin-top: 2rem;
+  line-height: 2rem;
+
+  h1 {
+    text-align: center;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    background-color: transparentize($color: $primary, $amount: 0.88);
+    font-weight: 600;
+    padding: 1.5rem 0;
+    margin: 1rem 0;
+    letter-spacing: 0.1rem;
+  }
+}
+
+.content table {
+  margin: 0 auto;
+}
+
+.fade-in {
+  visibility: visible;
+  animation: fadeIn 120ms ease-in-out;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0.25;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.footer {
+  border-top: 2px solid $primary;
+  color: #666;
+
+  font-size: 0.9rem;
+  padding: 0.5rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-shrink: 0;
+
+  margin-top: auto;
+}

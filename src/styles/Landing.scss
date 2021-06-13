@@ -1,0 +1,47 @@
+@import "theme";
+
+.landing {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: start;
+  cursor: default;
+
+  img.avatar {
+    height: 8rem;
+    width: auto;
+    align-self: center;
+    margin: 1rem 0;
+  }
+
+  img.link {
+    margin: 0 1rem;
+    height: 3rem;
+    width: auto;
+    opacity: 0.75;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  h1:hover,
+  h1:active {
+    cursor: default;
+    background: linear-gradient(to right, #f03, #30f, #00ff9d, #30f, #f03, #30f, #00ff9d, #30f, #f03);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: rainbow_animation 0.36s linear infinite;
+    background-size: 200% 100%;
+  }
+}
+
+@keyframes rainbow_animation {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100% 0%;
+  }
+}
