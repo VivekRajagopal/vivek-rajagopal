@@ -6,6 +6,7 @@ type Blog = {
   date: string;
   path: string;
   title: string;
+  description: string;
 };
 
 type PageQueryResult = {
@@ -16,9 +17,23 @@ type PageQueryResult = {
 
 const BlogEntry = (blog: Blog) => (
   <tr>
-    <td>{new Date(blog.date).toLocaleDateString()}</td>
-    <td>
-      <Link to={blog.path}>{blog.title}</Link>
+    <td
+      style={{
+        verticalAlign: "top"
+      }}
+    >
+      <small>{new Date(blog.date).toLocaleDateString()}</small>
+    </td>
+    <td
+      style={{
+        display: "flex",
+        flexDirection: "column"
+      }}
+    >
+      <Link to={blog.path}>
+        <h4 style={{ marginTop: 0, marginBottom: "0.5rem" }}>{blog.title}</h4>
+      </Link>
+      <small>{blog.description}</small>
     </td>
   </tr>
 );
@@ -34,6 +49,7 @@ const pageQuery = graphql`
           title
           path
           date
+          description
         }
       }
     }
