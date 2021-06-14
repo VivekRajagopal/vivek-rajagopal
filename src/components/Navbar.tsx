@@ -29,11 +29,11 @@ export const Navbar = () => (
       <BsPersonFill />
       <h4 className="navbar-link-name">Intro</h4>
     </Link>
-    <Link className="navbar-link" to={"/work"} activeClassName="active">
+    <Link className="navbar-link" to={"/work"} activeClassName="active" partiallyActive={true}>
       <BsLaptop />
       <h4 className="navbar-link-name">Work</h4>
     </Link>
-    <Link className="navbar-link" to={"/blog"} activeClassName="active">
+    <Link className="navbar-link" to={"/blog"} activeClassName="active" partiallyActive={true}>
       <BsCode />
       <h4 className="navbar-link-name">Blog</h4>
     </Link>

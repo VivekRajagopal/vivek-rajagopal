@@ -1,6 +1,8 @@
 ---
-title: Vivek Rajagopal
+title: Markdown Blogup
 path: /blog/markdown-blogup
+date: 2018-08-20
+description: Implementing markdown for my blog content.
 ---
 
 import { Page } from "../../components/Page.tsx";
@@ -8,7 +10,7 @@ import "../../styles/Blog.scss";
 
 <Page>
 
-# Markdown Blogup
+<h1>{props.pageContext.frontmatter.title}</h1>
 
 I discovered Markdown quite late into my web development journey. Previous attempts at creating web pages was to _hand-craft_ everything and manually place in all the **\<tags/>**.
 
