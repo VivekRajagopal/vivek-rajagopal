@@ -7,9 +7,12 @@ module.exports = {
     "gatsby-plugin-netlify-cms",
     "gatsby-plugin-sass",
     {
-      resolve: "gatsby-plugin-google-analytics",
+      resolve: "gatsby-plugin-google-gtag",
       options: {
-        trackingId: "G-7RQ42GPQC7"
+        trackingIds: ["G-7RQ42GPQC7"],
+        pluginConfig: {
+          head: true
+        }
       }
     },
     "gatsby-plugin-react-helmet",
@@ -23,6 +26,11 @@ module.exports = {
     {
       resolve: "gatsby-plugin-manifest",
       options: {
+        name: "Vivek Rajagopal",
+        short_name: "Vivek Rajagopal",
+        start_url: "/",
+        background_color: "#6622dd",
+        theme_color: "#6622dd",
         icon: "src/images/icon.png"
       }
     },
