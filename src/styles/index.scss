@@ -9,6 +9,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-size: 1.16rem;
   font-family: "Roboto";
+
+  &.darkmode {
+    background-color: #1d1d1d;
+    color: #eee;
+  }
 }
 
 h1,
@@ -36,6 +41,10 @@ h1 {
   padding: 1.5rem 0;
   margin: 1rem 0;
   letter-spacing: 0.1rem;
+
+  .darkmode & {
+    background-color: $primary;
+  }
 }
 
 p {
@@ -70,6 +79,11 @@ code {
   background-color: #e7e7e7;
   border-radius: 0.25rem;
   padding: 0.1rem 0.5rem;
+
+  .darkmode & {
+    color: #ddd;
+    background-color: #333;
+  }
 }
 
 pre {
@@ -92,10 +106,17 @@ a {
   color: #06f;
   text-decoration: none;
   font-weight: 500;
+
+  .darkmode & {
+    color: lighten($color: #06f, $amount: 15);
+  }
 }
 
 a:hover {
   color: $primary;
+  .darkmode & {
+    color: $primary-light;
+  }
 }
 
 a:active {

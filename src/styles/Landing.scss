@@ -12,6 +12,10 @@
     width: auto;
     align-self: center;
     margin: 1rem 0;
+
+    &.darkmode {
+      outline: 4px solid $primary;
+    }
   }
 
   img.link {
@@ -19,9 +23,15 @@
     height: 3rem;
     width: auto;
     opacity: 0.75;
+    padding: 0.25rem;
 
     &:hover {
       opacity: 1;
+    }
+
+    .darkmode & {
+      background-color: white;
+      border-radius: 0.25rem;
     }
   }
 

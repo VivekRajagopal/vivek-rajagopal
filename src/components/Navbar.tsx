@@ -1,41 +1,28 @@
-import React from "react";
-import { BsPersonFill, BsLaptop, BsCode } from "react-icons/bs";
 import { Link } from "gatsby";
-
+import React from "react";
+import { BsCode, BsLaptop, BsPersonFill } from "react-icons/bs";
+import { CgDarkMode } from "react-icons/cg";
+import { toggleDarkmode } from "../utils/darkmode";
 import "./Navbar.scss";
 
-// const style: React.CSSProperties = {
-//   color: "white",
-//   flexShrink: 0,
-//   display: "flex",
-//   flexDirection: "row",
-//   justifyItems: "center",
-//   justifyContent: "space-around",
-//   width: "100%",
-//   position: "sticky",
-//   top: "0",
-//   backgroundColor: "white"
-// };
-
 const routes = [
-  { path: "/", title: "Intro", cIcon: BsPersonFill },
-  { path: "/work", title: "Work", cIcon: BsPersonFill },
-  { path: "/blog", title: "Blog", cIcon: BsPersonFill }
+  { path: "/", title: "Intro", icon: BsPersonFill },
+  { path: "/work", title: "Work", icon: BsLaptop },
+  { path: "/blog", title: "Blog", icon: BsCode }
 ];
+
+const routeToLink = ({ path, icon, title }: typeof routes[number]) => (
+  <Link className="navbar-link" to={path} activeClassName="active">
+    {icon({})}
+    <h4 className="navbar-link-name">{title}</h4>
+  </Link>
+);
 
 export const Navbar = () => (
   <div className="navbar-container">
-    <Link className="navbar-link" to={"/"} activeClassName="active">
-      <BsPersonFill />
-      <h4 className="navbar-link-name">Intro</h4>
-    </Link>
-    <Link className="navbar-link" to={"/work"} activeClassName="active" partiallyActive={true}>
-      <BsLaptop />
-      <h4 className="navbar-link-name">Work</h4>
-    </Link>
-    <Link className="navbar-link" to={"/blog"} activeClassName="active" partiallyActive={true}>
-      <BsCode />
-      <h4 className="navbar-link-name">Blog</h4>
-    </Link>
+    {routes.map(routeToLink)}
+    <span className="navbar-link darkmode-toggle" onClick={() => toggleDarkmode()}>
+      <CgDarkMode />
+    </span>
   </div>
 );

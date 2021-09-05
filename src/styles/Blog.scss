@@ -12,6 +12,10 @@ table {
 
   tr:hover {
     background-color: #eee;
+
+    .darkmode & {
+      background-color: #333;
+    }
   }
 
   th {
