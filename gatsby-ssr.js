@@ -2,7 +2,7 @@ import React from "react";
 
 import { darkmodeClassname, darkmodeSettingName } from "./src/utils/darkmode";
 
-const MagicScriptTag = () => {
+const DarkmodeScript = () => {
   const codeToRunOnClient = `
 (function() {
   if (localStorage.getItem("${darkmodeSettingName}") === "true") {
@@ -15,5 +15,5 @@ const MagicScriptTag = () => {
 };
 
 export const onRenderBody = ({ setPreBodyComponents }) => {
-  setPreBodyComponents(<MagicScriptTag />);
+  setPreBodyComponents(<DarkmodeScript />);
 };
