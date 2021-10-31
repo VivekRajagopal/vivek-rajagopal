@@ -13,8 +13,16 @@
     align-self: center;
     margin: 1rem 0;
 
+    .darkmode &.default {
+      display: none;
+    }
+
     &.darkmode {
-      outline: 4px solid $primary;
+      display: none;
+    }
+
+    .darkmode &.darkmode {
+      display: initial;
     }
   }
 
