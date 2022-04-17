@@ -1,0 +1,220 @@
+---
+title: Parsing JSON with FSharp
+path: /blog/2021/Nov/fsharp-json-parser
+date: 2021-11-05
+description: Simple JSON parser written in FSharp
+---
+
+import { Page } from "../../../../components/Page.tsx";
+import "../../../../styles/Blog.scss";
+
+<Page>
+
+<h1>{props.pageContext.frontmatter.title}</h1>
+
+This is an overview of parsing JSON with FSharp - it is not a step-by-step tutorial. For that I recommend reading Scott
+Wlaschin's four-part tutorial on
+[how to use Parser Combinators to parse JSON](https://fsharpforfunandprofit.com/posts/understanding-parser-combinators/).
+
+JSON is just a format to represent arbritrary data. But JSON is just text at the end of the day. How do we take a simple
+string and parse it into a complex in-memory representation of arbritrary data?
+
+## Final Results
+
+Final Result: ✨ https://fsharp-json-parser.netlify.app ✨
+
+Source: https://github.com/VivekRajagopal/fsharp-json-parser
+
+## Parser Combinators
+
+Parser Combinators are the logical building blocks in comining smaller, atomic units of parsing logic into more complex
+data structures. This JSON parser assumes that the input is a whole piece of text representing the raw JSON. This makes
+the atomic unit to parse a single character.
+
+Take such an atomic parser;
+
+```fsharp
+let parse_n input =
+  let firstChar = input.[0]
+
+  if firstChar = 'n' then
+    Ok ('n')
+  else
+    Error "Expected input to be 'n'"
+```
+
+The signature being `fun input:string -> Result<char, string>`
+
+Let's make the parser a bit more flexible.
+
+```fsharp
+let parseF predicate input =
+  let firstChar = input.[0]
+
+  if predicate(firstChar) then
+    Ok (firstChar)
+  else
+    Error $"Expected input to be '{firstChar}'"
+```
+
+Here `predicate` has a signature of `fun char -> bool`, which allows us easily create more atomic parser.
+
+## Parse this AND that
+
+Okay, something a bit more challenging. Let's try and parse an entire JSON `null` value. We need to parse each letter
+sequentially, and we can do that by combining atomic parsers. Let's also make things easier by returning the remaining
+unparsed input in the `Ok` path in `parseF`. And why not check to see if `input` is empty while we're at it.
+
+We need to introduce our first `andThen` combinator. This combines two parser into one, and requires the first one to
+succeed followed by the second.
+
+```fsharp
+open System
+
+let parseF predicate input =
+  if String.IsNullOrEmpty(input) then
+    Error "input is null or empty"
+  else
+    let firstChar = input.[0]
+
+    if predicate(firstChar) then
+      let remainingChars = input.[1..]
+      Ok (firstChar, remainingChars)
+    else
+      Error $"Expected input to be '{firstChar}'"
+
+let parse_n = parseF (fun c -> c = 'n')
+let parse_u = parseF (fun c -> c = 'u')
+let parse_l = parseF (fun c -> c = 'l')
+
+let andThen p1 p2 =
+  let parser input =
+    input
+    |> p1
+    |> Result.bind (
+      fun (v1, r1) ->
+        p2 r1
+        |> Result.map (fun (v2,r2) -> (v1, v2, r2))
+    )
+    |> Result.bind (fun (v1, v2, r2) -> Ok ((v1, v2), r2))
+
+  parser
+
+let (>>>) = andThen
+
+let parse_null =
+  parse_n >>> parse_u >>> parse_l >>> parse_l
+```
+
+Try it out on the Fable REPL
+[here](https://fable.io/repl/#?code=DYUwLgBADghgTgZxAMWnEATAlgYxmECACiwDsoBXMALggTDjIHMBKCAXgFgAoCPiUJABmWRGADCAC3gcIZSmAB0AbQAMAXR49+coWky58IIiLFT4bMJJCltO-oIjoAtjDLNziWfKoqAjIqKmrz2fADyANbEpvSeADROIK7upEyeCCx2fCDASFn2AKJwcAD2cBAAJABEBQAeUCA4BBhy5FQQYCUQAEaEAOQA3jES0nAAvn1VWtyOsIggAPqksnNIqCYUyzgQALQAfBDb7BB9pH2ZM+DQ8EgLFCs3KNGbh7sHRycU5zyzjwvAD3m6yEL22+1exz6wG+3B+VxwJWc3TIIAACo8vFA-NAAEwcOy-eblHyQLghPgk-IAHwOWOpBwASiAEBRgEpkaQWkR8nwQcsiAA3PwJOB+Nj7Hn8KB40WSvg0iBMllsxSuKDPfkCnFxOA48UHQXCiBakV6i46c38BVK1nsshcvnEIUJE1OPVvCCRYiGl1600sC52VYgODTRxEPaRtjHBFIlHookIMNXYNLVkAsl8VPLSO0v73XPXeb-CCF1PAabZ9MQKqkdNTbgKqCMUhgPRVACkAEEqkA&html=Q&css=Q).
+
+### Expanded Parser
+
+The `null` parser we created above is fairly simple. If we write out the expanded code in english it would be something
+like;
+
+> Parse "n",
+>
+> > then in the remaining input, parse "u"
+> >
+> > > then in the remaining input, parse "l"
+> > >
+> > > > then in the remaining input, parse "l"
+
+## Parse this OR that
+
+Our next useful parser is the `orElse` parser. This takes two parsers and requires one to succeed.
+
+```fsharp
+let orElse p1 p2 =
+  let parser input =
+    let result1 = input |> p1
+    let result2 = input |> p2
+
+    match result1, result2 with
+    | Ok (v1, r1), Ok _ -> Ok (v1, r1)
+    | _, Ok (v2, r2) -> Ok (v2, r2)
+    | Ok (v1, r1), _ -> Ok (v1, r1)
+    | Error err1, Error _ -> Error err1
+
+  parser
+
+let (<|>) = orElse
+```
+
+Armed with the `andThen` and `orElse` parser we can build fairly complex parsers.
+
+A single JSON value can be many different types; `null`, `true`, `false`.. etc. We can use the `orElse` parser to choose
+between valid fully parsed JSON values.
+
+In FSharp we can represent our JSON model like;
+
+```fsharp
+type JValue =
+  | JString of string
+  | JNumber of float
+  | JBool of bool
+  | JNull
+  | JObject of Map<string, JValue>
+  | JArray of JValue list
+```
+
+## Mutually Recursive Parser
+
+One slightly tricky part of parsing JSON is the fact that model is recursive. A `JArray` is an array of `JValue`, which
+itself can be a `JArray`. So how can we parse a `JArray` if we can't first parse `JValue`... which needs the `JArray`
+parser?!
+
+The slightly "hacky" way to get around this is to declare a dummy parser for `JValue`, that `JValue` and `JObject` can
+still reference in their parsing logic. `JValue` parser is finally defined at the end to close off the loop.
+
+```fsharp
+let createForwardRefParser<'T> () =
+  let dummyParser = fun _ -> failwith "Null forward parser"
+
+  let parserRef = ref dummyParser
+
+  let actualParser input =
+    input
+    |> Parser.run !parserRef
+
+  actualParser, parserRef
+
+let jValue, jValueRef = createForwardRefParser<JValue>()
+
+// ... use jValue in other parsers
+
+// ... finally update value in jValueRef to actual jValue parser
+
+jValueRef := jValue
+```
+
+I wasn't a total fan of this method, and instead would prefer to use mutually recursive functions. This is totally valid
+code in FSharp (copied from [StackOverflow](https://stackoverflow.com/a/3621208/10195374));
+
+```fsharp
+let rec f x =
+  if x > 0 then
+    g (x-1)
+  else
+    x
+
+and g x =
+  if x > 0 then
+    f (x-1)
+  else
+    x
+```
+
+## Improvements
+
+The final solution is the most basic implementation clocking in at a pretty light ~290 lines of code for the core
+business logic. Performance was not really considered for this project. But I'm still curious about how well (or rather
+poorly) it performs.
+
+If I ever get time in the future, I'd like to benchmark this parser and see if I can improve on it. The first performance
+improvement opportunity to explore is to try and parse more than one character at a time. This would allow an early fail,
+or short-circuiting into a more specific JValue type.
+
+</Page>
