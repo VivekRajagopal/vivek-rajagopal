@@ -4,7 +4,6 @@ module.exports = {
     siteUrl: "https://vivekrajagopal.dev"
   },
   plugins: [
-    "gatsby-plugin-netlify-cms",
     "gatsby-plugin-sass",
     {
       resolve: "gatsby-plugin-google-gtag",
