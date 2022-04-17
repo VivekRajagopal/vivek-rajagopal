@@ -22,7 +22,9 @@ const BlogEntry = (blog: Blog) => (
         verticalAlign: "top"
       }}
     >
-      <small>{new Date(blog.date).toLocaleDateString()}</small>
+      <small>
+        {new Date(blog.date).toLocaleDateString("en-AU", { day: "2-digit", month: "short", year: "numeric" })}
+      </small>
     </td>
     <td
       style={{

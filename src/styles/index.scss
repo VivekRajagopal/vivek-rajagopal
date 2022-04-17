@@ -74,29 +74,25 @@ main {
 
 code {
   font-family: "Consolas", "Courier New", Courier, monospace;
-  color: #222;
-  font-weight: bolder;
-  background-color: #e7e7e7;
-  border-radius: 0.25rem;
   padding: 0.1rem 0.5rem;
-
-  .darkmode & {
-    color: #ddd;
-    background-color: #333;
-  }
 }
 
 pre {
-  background-color: #eee;
-  padding: 0.5rem 1.5rem 0.5rem;
-  border-left: 2px solid #06f;
+  border-left: 2px solid $primary-light;
+  border-radius: 0 !important;
 
   overflow: hidden;
-  font-size: 100%;
+  font-size: 0.84rem;
   color: #036;
   cursor: default;
+  padding: 0.5rem;
+
+  .darkmode & {
+    color: rgb(174, 207, 255);
+    background-color: #111;
+  }
+
   code {
-    color: #002a66;
     border: none;
     padding: 0;
   }
