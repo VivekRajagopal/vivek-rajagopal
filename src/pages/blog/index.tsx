@@ -1,6 +1,7 @@
-import { graphql, Link, useStaticQuery } from "gatsby";
-import React from "react";
+import { BlogArticleCard } from "../../components/BlogArticleCard/BlogArticleCard";
 import { Page } from "../../components/Page";
+import { graphql, useStaticQuery } from "gatsby";
+import React from "react";
 
 type Blog = {
   date: string;
@@ -14,31 +15,6 @@ type PageQueryResult = {
     posts: { frontmatter: Blog }[];
   };
 };
-
-const BlogEntry = (blog: Blog) => (
-  <tr>
-    <td
-      style={{
-        verticalAlign: "top"
-      }}
-    >
-      <small>
-        {new Date(blog.date).toLocaleDateString("en-AU", { day: "2-digit", month: "short", year: "numeric" })}
-      </small>
-    </td>
-    <td
-      style={{
-        display: "flex",
-        flexDirection: "column"
-      }}
-    >
-      <Link to={blog.path}>
-        <h4 style={{ marginTop: 0, marginBottom: "0.5rem" }}>{blog.title}</h4>
-      </Link>
-      <small>{blog.description}</small>
-    </td>
-  </tr>
-);
 
 const pageQuery = graphql`
   query BlogsQuery {
@@ -64,10 +40,18 @@ const BlogPage = () => {
   return (
     <Page>
       <h1>Vivek Rajagopal</h1>
-      <table>
-        <thead></thead>
-        <tbody>{blog.posts.map(({ frontmatter }) => BlogEntry(frontmatter))}</tbody>
-      </table>
+
+      <div className="blogs-list">
+        {blog.posts.map(({ frontmatter }) => (
+          <BlogArticleCard
+            className="blog-item"
+            title={frontmatter.title}
+            datePublished={new Date(frontmatter.date)}
+            description={frontmatter.description}
+            path={frontmatter.path}
+          />
+        ))}
+      </div>
     </Page>
   );
 };

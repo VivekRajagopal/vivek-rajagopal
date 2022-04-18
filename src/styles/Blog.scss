@@ -1,32 +1,18 @@
-table {
-  border-collapse: collapse;
-  text-align: left;
+.blogs-list {
+  display: flex;
+  flex-wrap: wrap;
 
-  thead {
-    border-bottom: 2px solid #6667;
-  }
+  .blog-item {
+    flex: 0 0 50%;
+    align-items: stretch;
+    display: flex;
 
-  tr {
-    transition: 60ms all ease-in;
-  }
-
-  tr:hover {
-    background-color: #eee;
-
-    .darkmode & {
-      background-color: #333;
+    @media (max-width: 600px) {
+      flex: 0 0 100%;
     }
   }
 
-  th {
-    font-weight: 500;
-    font-size: 112.5%;
-  }
-
-  td {
-    padding: 1.2rem 0.8rem 1.2rem;
-    border-bottom: 1px solid #aaa;
-  }
+  margin: 0 -1rem;
 }
 
 main img {
