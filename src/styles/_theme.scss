@@ -1,2 +1,10 @@
 $primary: #62d;
 $primary-light: lighten($primary, 20);
+
+$darkmode-bg: #171117;
+$darkmode-color: #eee;
+
+$muted-color: #999;
+.muted {
+  color: $muted-color;
+}

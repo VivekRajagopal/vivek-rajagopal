@@ -7,6 +7,11 @@
   justify-content: start;
   cursor: default;
 
+  img {
+    border: none;
+    border-radius: initial;
+  }
+
   img.avatar {
     height: 8rem;
     width: auto;
@@ -30,27 +35,21 @@
     margin: 0 1rem;
     height: 3rem;
     width: auto;
-    opacity: 0.75;
     padding: 0.25rem;
 
-    &:hover {
-      opacity: 1;
-    }
-
     .darkmode & {
-      background-color: white;
-      border-radius: 0.25rem;
+      filter: invert(100%);
     }
   }
 
   h1:hover,
   h1:active {
     cursor: default;
-    background: linear-gradient(to right, #f03, #30f, #00ff9d, #30f, #f03, #30f, #00ff9d, #30f, #f03);
+    background: linear-gradient(to right, #f03, #30f, #00ff9d, #30f, #fff, #f03, #30f, #00ff9d, #30f, #f03);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    animation: rainbow_animation 0.36s linear infinite;
+    animation: rainbow_animation 360ms ease-in-out infinite;
     background-size: 200% 100%;
   }
 }

@@ -2,7 +2,7 @@
 title: Parsing JSON with FSharp
 path: /blog/2021/Nov/fsharp-json-parser
 date: 2021-11-05
-description: Simple JSON parser written in FSharp
+description: A simple JSON parser written in FSharp and deployed as a JavaScript app.
 ---
 
 import { Page } from "../../../../components/Page.tsx";
@@ -207,7 +207,19 @@ and g x =
     x
 ```
 
-## Improvements
+## Deploying this on the Web 🚀
+
+If you don't release something you develop, does it really exist?
+
+Faux rhetoric aside, I was keen to deploy this JSON parser in an easily consumable format. There's no production use-case for this parser, but I wanted to deploy it for demo and showcasing purposes.
+
+[Fable](https://fable.io/) (not the video game) is a FSharp to JavaScript transpiler. This enables us to code our app in FSharp and use Fable to spit out JavaScript that can run on a user's browser (or purely as a NodeJS app). The idea of a functionally programmed, strongly typed "JavaScript" app is not new. Check out [Elm](https://elm-lang.org/) if you're interested in an alternative.
+
+From here there was a little trial and error to deploy the built JS web app to Netlify. Netlify does not support using the Dotnet SDK during the build process. So intead, Github builds the FSharp Dotnet solution into a JS app and pushes that into Netlify.
+
+After all that, we get https://fsharp-json-parser.netlify.app.
+
+## Future Improvements
 
 The final solution is the most basic implementation clocking in at a pretty light ~290 lines of code for the core
 business logic. Performance was not really considered for this project. But I'm still curious about how well (or rather
