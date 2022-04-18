@@ -137,6 +137,10 @@ tr {
 
 tr:hover {
   background-color: #eee;
+
+  .darkmode & {
+    background-color: #222;
+  }
 }
 
 th {
