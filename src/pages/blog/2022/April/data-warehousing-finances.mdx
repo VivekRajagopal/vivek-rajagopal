@@ -80,11 +80,12 @@ is very very low. It's also naturally tolerant against cases where the Up API or
 down for a prolonged period.
 
 There is no additional state to keep a record of all synced transactions, the state IS Airtable. The
-worker handler is stateless, so if it fails at any point the worst outcome is it fail to sync rows
-into Airtable. Making it stateful increases the chance of the system to get into an inconsistent
-state. For example, records in Airtable not matching records in the internal state.
+worker handler is stateless, so if it fails at any point the worst outcome is it fails to sync rows
+into Airtable. Making it stateful increases the chance of the system getting into an inconsistent
+state, like records in Airtable not matching records in the internal state.
 
-Making it stateless was an intentional decision for the scope of the transactions syncing task.
+Making it stateless was an intentional decision for the scope of the transactions syncing task. If the 
+scope was different, a state-ful approach may have been more viable.
 
 ## Caveats
 
@@ -92,17 +93,16 @@ _The Airtable API does not provide means to guarantee idempotency._
 
 Two concurrent runs **can** result in duplicate rows. There's no straight forward way to combat this
 with the current setup. Given that it can only happen if there is a bug with Cloudflare worker
-scheduling, or its run manually, it's not a huge risk. There is a way of detecting duplicate rows in
-Airtable, so on the off chance it does happen, we can identify and delete duplicate rows from
-Airtable.
+scheduling, or its run manually, it's not a huge risk. There _is_ a way of detecting duplicate rows in
+Airtable, so on the off chance it does happen, it can be dealt with appropriately 💀.
 
 _No telemetry_
 
 Logs from completed Cloudflare Worker runs are not observable. Only currently running workers can be
-observed. There is very simple "logging" of the final result to Cloudflare KV, mainly for
+observed. There is very simple manual "logging" of the final result to Cloudflare KV, mainly for
 observality during development. Cloudflare Workers during development actually still run on the
-edge, and not your local machine. Console logs are streamed to your localhost, so at least that's
-available.
+edge, and not your local machine, so they can't be debugged locally. Console logs are streamed to your 
+localhost, so at least that's available.
 
 If runs fail for whatever reason, the stateless nature of the worker helps to safely try to "debug"
 the issue locally without corrupting any internal state.
