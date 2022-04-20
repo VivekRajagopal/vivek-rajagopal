@@ -10,14 +10,15 @@ import "../../../../styles/Blog.scss";
 
 <Page>
 
+
 <h1>{props.pageContext.frontmatter.title}</h1>
 
-This is an overview of parsing JSON with FSharp - it is not a step-by-step tutorial. For that I recommend reading Scott
-Wlaschin's four-part tutorial on
+This is an overview of parsing JSON with FSharp - it is not a step-by-step tutorial. For that I
+recommend reading Scott Wlaschin's four-part tutorial on
 [how to use Parser Combinators to parse JSON](https://fsharpforfunandprofit.com/posts/understanding-parser-combinators/).
 
-JSON is just a format to represent arbritrary data. But JSON is just text at the end of the day. How do we take a simple
-string and parse it into a complex in-memory representation of arbritrary data?
+JSON is just a format to represent arbritrary data. But JSON is just text at the end of the day. How
+do we take a simple string and parse it into a complex in-memory representation of arbritrary data?
 
 ## Final Results
 
@@ -27,9 +28,9 @@ Source: https://github.com/VivekRajagopal/fsharp-json-parser
 
 ## Parser Combinators
 
-Parser Combinators are the logical building blocks in comining smaller, atomic units of parsing logic into more complex
-data structures. This JSON parser assumes that the input is a whole piece of text representing the raw JSON. This makes
-the atomic unit to parse a single character.
+Parser Combinators are the logical building blocks in comining smaller, atomic units of parsing
+logic into more complex data structures. This JSON parser assumes that the input is a whole piece of
+text representing the raw JSON. This makes the atomic unit to parse a single character.
 
 Take such an atomic parser;
 
@@ -57,16 +58,18 @@ let parseF predicate input =
     Error $"Expected input to be '{firstChar}'"
 ```
 
-Here `predicate` has a signature of `fun char -> bool`, which allows us easily create more atomic parser.
+Here `predicate` has a signature of `fun char -> bool`, which allows us easily create more atomic
+parser.
 
 ## Parse this AND that
 
-Okay, something a bit more challenging. Let's try and parse an entire JSON `null` value. We need to parse each letter
-sequentially, and we can do that by combining atomic parsers. Let's also make things easier by returning the remaining
-unparsed input in the `Ok` path in `parseF`. And why not check to see if `input` is empty while we're at it.
+Okay, something a bit more challenging. Let's try and parse an entire JSON `null` value. We need to
+parse each letter sequentially, and we can do that by combining atomic parsers. Let's also make
+things easier by returning the remaining unparsed input in the `Ok` path in `parseF`. And why not
+check to see if `input` is empty while we're at it.
 
-We need to introduce our first `andThen` combinator. This combines two parser into one, and requires the first one to
-succeed followed by the second.
+We need to introduce our first `andThen` combinator. This combines two parser into one, and requires
+the first one to succeed followed by the second.
 
 ```fsharp
 open System
@@ -111,8 +114,8 @@ Try it out on the Fable REPL
 
 ### Expanded Parser
 
-The `null` parser we created above is fairly simple. If we write out the expanded code in english it would be something
-like;
+The `null` parser we created above is fairly simple. If we write out the expanded code in english it
+would be something like;
 
 > Parse "n",
 >
@@ -145,8 +148,8 @@ let (<|>) = orElse
 
 Armed with the `andThen` and `orElse` parser we can build fairly complex parsers.
 
-A single JSON value can be many different types; `null`, `true`, `false`.. etc. We can use the `orElse` parser to choose
-between valid fully parsed JSON values.
+A single JSON value can be many different types; `null`, `true`, `false`.. etc. We can use the
+`orElse` parser to choose between valid fully parsed JSON values.
 
 In FSharp we can represent our JSON model like;
 
@@ -162,12 +165,13 @@ type JValue =
 
 ## Mutually Recursive Parser
 
-One slightly tricky part of parsing JSON is the fact that model is recursive. A `JArray` is an array of `JValue`, which
-itself can be a `JArray`. So how can we parse a `JArray` if we can't first parse `JValue`... which needs the `JArray`
-parser?!
+One slightly tricky part of parsing JSON is the fact that model is recursive. A `JArray` is an array
+of `JValue`, which itself can be a `JArray`. So how can we parse a `JArray` if we can't first parse
+`JValue`... which needs the `JArray` parser?!
 
-The slightly "hacky" way to get around this is to declare a dummy parser for `JValue`, that `JValue` and `JObject` can
-still reference in their parsing logic. `JValue` parser is finally defined at the end to close off the loop.
+The slightly "hacky" way to get around this is to declare a dummy parser for `JValue`, that `JValue`
+and `JObject` can still reference in their parsing logic. `JValue` parser is finally defined at the
+end to close off the loop.
 
 ```fsharp
 let createForwardRefParser<'T> () =
@@ -190,8 +194,9 @@ let jValue, jValueRef = createForwardRefParser<JValue>()
 jValueRef := jValue
 ```
 
-I wasn't a total fan of this method, and instead would prefer to use mutually recursive functions. This is totally valid
-code in FSharp (copied from [StackOverflow](https://stackoverflow.com/a/3621208/10195374));
+I wasn't a total fan of this method, and instead would prefer to use mutually recursive functions.
+This is totally valid code in FSharp (copied from
+[StackOverflow](https://stackoverflow.com/a/3621208/10195374));
 
 ```fsharp
 let rec f x =
@@ -211,22 +216,29 @@ and g x =
 
 If you don't release something you develop, does it really exist?
 
-Faux rhetoric aside, I was keen to deploy this JSON parser in an easily consumable format. There's no production use-case for this parser, but I wanted to deploy it for demo and showcasing purposes.
+Faux rhetoric aside, I was keen to deploy this JSON parser in an easily consumable format. There's
+no production use-case for this parser, but I wanted to deploy it for demo and showcasing purposes.
 
-[Fable](https://fable.io/) (not the video game) is a FSharp to JavaScript transpiler. This enables us to code our app in FSharp and use Fable to spit out JavaScript that can run on a user's browser (or purely as a NodeJS app). The idea of a functionally programmed, strongly typed "JavaScript" app is not new. Check out [Elm](https://elm-lang.org/) if you're interested in an alternative.
+[Fable](https://fable.io/) (not the video game) is a FSharp to JavaScript transpiler. This enables
+us to code our app in FSharp and use Fable to spit out JavaScript that can run on a user's browser
+(or purely as a NodeJS app). The idea of a functionally programmed, strongly typed "JavaScript" app
+is not new. Check out [Elm](https://elm-lang.org/) if you're interested in an alternative.
 
-From here there was a little trial and error to deploy the built JS web app to Netlify. Netlify does not support using the Dotnet SDK during the build process. So intead, Github builds the FSharp Dotnet solution into a JS app and pushes that into Netlify.
+From here there was a little trial and error to deploy the built JS web app to Netlify. Netlify does
+not support using the Dotnet SDK during the build process. So intead, Github builds the FSharp
+Dotnet solution into a JS app and pushes that into Netlify.
 
 After all that, we get https://fsharp-json-parser.netlify.app.
 
 ## Future Improvements
 
-The final solution is the most basic implementation clocking in at a pretty light ~290 lines of code for the core
-business logic. Performance was not really considered for this project. But I'm still curious about how well (or rather
-poorly) it performs.
+The final solution is the most basic implementation clocking in at a pretty light ~290 lines of code
+for the core business logic. Performance was not really considered for this project. But I'm still
+curious about how well (or rather poorly) it performs.
 
-If I ever get time in the future, I'd like to benchmark this parser and see if I can improve on it. The first performance
-improvement opportunity to explore is to try and parse more than one character at a time. This would allow an early fail,
-or short-circuiting into a more specific JValue type.
+If I ever get time in the future, I'd like to benchmark this parser and see if I can improve on it.
+The first performance improvement opportunity to explore is to try and parse more than one character
+at a time. This would allow an early fail, or short-circuiting into a more specific JValue type.
 
 </Page>
+

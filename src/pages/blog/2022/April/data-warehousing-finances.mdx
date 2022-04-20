@@ -1,0 +1,110 @@
+---
+title: Data Warehousing my Finances
+path: /blog/2022/April/data-warehousing-finances
+date: 2022-04-18
+description: Using TypeScript and Cloudflare Workers to Data Warehouse my Banking Transactions.
+---
+
+import { Page } from "../../../../components/Page.tsx";
+import "../../../../styles/Blog.scss";
+
+<Page>
+
+<h1>{props.pageContext.frontmatter.title}</h1>
+
+Living in Australia, I have access to the [Up Banking](https://up.com.au/) app. Apart from having a
+nice user experience, it also has a Developer API so I can query all my Account and Transaction
+data.
+
+A sweet user experience is nice for day-to-day payments. It's not so great analysing hundreds of
+transactions over many months.
+
+Luckily, their API allows me to sync my transactions into whatever data store I want. I could even
+sync the data into a SQL DB and build reports (or APIs) off that!
+
+## Tech Choices
+
+To keep the scope of the project manageable I decided to focus a single use-case - "I want to view
+my Up Transactions in a Spreadsheet-like tool". [Airtable](https://airtable.com) was the
+Spreadsheet-like tool of choice because of its simple API to read and write records.
+
+That's the data store sorted ✅
+
+For compute I went with Cloudflare Workers. Again, I've used it in the past and it's very simple to
+get up an running. Most importantly, its free! (At least for my usage requirements).
+
+More mature Cloud compute products like Azure Functions or AWS Lambda are definitely viable and are
+more feature-ful compared to Cloudflare Workers. Azure Functions provides telemetry with App
+Insights with little configuration for example, and environment secrets with Azure Key Vault.
+However, this needs an Azure Subscription (which has a monthly fixed cost), and each service costs
+$X a month. For all these reasons, I went with basic out-of-the-box Cloudflare Workers.
+
+### Cloudflare Workers
+
+Massively simplifying - the Cloudflare Workers architecture runs JavaScript in a similar way to how
+your browser runs JS. Individual workers have no knowledge of other Workers, and have no way of
+sharing memory - similar to invididual tabs/windows with separate websites in a browser. So as long
+as you're using only the allowed
+[runtime APIs](https://developers.cloudflare.com/workers/runtime-apis/), you can write your
+Cloudflare Worker app in any language that you can transpile to JS.
+
+TypeScript seemed like the best choice given high likelihood that any external packages I require
+would come with typings. Ideally I'd go with a functional language that can be transpiled to JS -
+i.e. FSharp. But given subtle differences in the runtime's Fetch API, TypeScript with official
+Cloudflare Worker typings was a safer bet.
+
+The Cloudflare Worker
+[architecture](https://blog.cloudflare.com/cloud-computing-without-containers/) is really
+interesting and I highly recommend reading it yourself. The
+[Security model](https://developers.cloudflare.com/workers/learning/security-model/) is especially
+interesting, and goes into great depth about a type of exploit known as a Spectre attack 👻.
+
+## Project Solution
+
+The final source can be found here: https://github.com/VivekRajagopal/finance-up-transactions-sync
+
+The main worker handler will effectively;
+
+1. Query last (100 - e) Up Transactions, where `e` is some small number to ensure already synced
+   records fetched in point 2 fully overlaps this query
+2. Query last 100 Airtable records
+3. Find unsynced Up Transactions
+4. Create these unsynced transactions in Airtable
+
+Every hour.
+
+Values of 100 transactions being queried come from page size limitations. In practice, 100
+transactions covers about a month of transactions and is actually massively redundant. I could get
+away with a count of 25. However, by going with 100 transactions, the chance of a missed transaction
+is very very low. It's also naturally tolerant against cases where the Up API or Airtable API is
+down for a prolonged period.
+
+There is no additional state to keep a record of all synced transactions, the state IS Airtable. The
+worker handler is stateless, so if it fails at any point the worst outcome is it fails to sync rows
+into Airtable. Making it stateful increases the chance of the system getting into an inconsistent
+state, like records in Airtable not matching records in the internal state.
+
+Making it stateless was an intentional decision for the scope of the transactions syncing task. If the 
+scope was different, a state-ful approach may have been more viable.
+
+## Caveats
+
+_The Airtable API does not provide means to guarantee idempotency._
+
+Two concurrent runs **can** result in duplicate rows. There's no straight forward way to combat this
+with the current setup. Given that it can only happen if there is a bug with Cloudflare worker
+scheduling, or its run manually, it's not a huge risk. There _is_ a way of detecting duplicate rows in
+Airtable, so on the off chance it does happen, it can be dealt with appropriately 💀.
+
+_No telemetry_
+
+Logs from completed Cloudflare Worker runs are not observable. Only currently running workers can be
+observed. There is very simple manual "logging" of the final result to Cloudflare KV, mainly for
+observality during development. Cloudflare Workers during development actually still run on the
+edge, and not your local machine, so they can't be debugged locally. Console logs are streamed to your 
+localhost, so at least that's available.
+
+If runs fail for whatever reason, the stateless nature of the worker helps to safely try to "debug"
+the issue locally without corrupting any internal state.
+
+</Page>
