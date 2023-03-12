@@ -7,8 +7,7 @@ import "./Navbar.scss";
 
 const routes = [
   { path: "/", title: "Intro", icon: BsPersonFill },
-  { path: "/work", title: "Work", icon: BsLaptop },
-  { path: "/blog", title: "Blog", icon: BsCode }
+  { path: "/blog", title: "Blog", icon: BsCode },
 ];
 
 const routeToLink = ({ path, icon, title }: typeof routes[number]) => (
