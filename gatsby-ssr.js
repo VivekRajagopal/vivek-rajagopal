@@ -14,6 +14,7 @@ const DarkmodeScript = () => {
   return <script dangerouslySetInnerHTML={{ __html: codeToRunOnClient }} />;
 };
 
-export const onRenderBody = ({ setPreBodyComponents }) => {
-  setPreBodyComponents(<DarkmodeScript />);
+export const onRenderBody = ({ setPreBodyComponents, setBodyAttributes }) => {
+  setPreBodyComponents(<DarkmodeScript key="darkmode-script" />);
+  setBodyAttributes({ className: "darkmode" });
 };
