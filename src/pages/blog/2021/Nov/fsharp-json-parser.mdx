@@ -5,11 +5,10 @@ date: 2021-11-05
 description: A simple JSON parser written in FSharp and deployed as a JavaScript app.
 ---
 
-import { Page } from "../../../../components/Page.tsx";
-import "../../../../styles/Blog.scss";
+import { Page } from "@/components/Page.tsx";
+import "@/styles/Blog.scss";
 
 <Page>
-
 
 <h1>{props.pageContext.frontmatter.title}</h1>
 
@@ -241,4 +240,3 @@ The first performance improvement opportunity to explore is to try and parse mor
 at a time. This would allow an early fail, or short-circuiting into a more specific JValue type.
 
 </Page>
-

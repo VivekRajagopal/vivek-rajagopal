@@ -1,5 +1,6 @@
 import { Link } from "gatsby";
 import React from "react";
+
 import "./BlogArticleCard.scss";
 
 type BlogArticleCardProps = {
@@ -10,7 +11,13 @@ type BlogArticleCardProps = {
   path: string;
 };
 
-export const BlogArticleCard = ({ className, datePublished, description, title, path }: BlogArticleCardProps) => (
+export const BlogArticleCard = ({
+  className,
+  datePublished,
+  description,
+  title,
+  path,
+}: BlogArticleCardProps) => (
   <div className={className}>
     <Link to={path} className="blog-article-card-container">
       <div className="blog-article-card">

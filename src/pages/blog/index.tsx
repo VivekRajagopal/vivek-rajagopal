@@ -1,7 +1,8 @@
-import { BlogArticleCard } from "../../components/BlogArticleCard/BlogArticleCard";
-import { Page } from "../../components/Page";
 import { graphql, useStaticQuery } from "gatsby";
 import React from "react";
+
+import { BlogArticleCard } from "@/components/BlogArticleCard/BlogArticleCard";
+import { Page } from "@/components/Page";
 
 type Blog = {
   date: string;
