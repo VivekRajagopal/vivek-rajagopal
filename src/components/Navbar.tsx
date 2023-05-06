@@ -1,8 +1,10 @@
 import { Link } from "gatsby";
 import React from "react";
-import { BsCode, BsLaptop, BsPersonFill } from "react-icons/bs";
+import { BsCode, BsPersonFill } from "react-icons/bs";
 import { CgDarkMode } from "react-icons/cg";
-import { toggleDarkmode } from "../utils/darkmode";
+
+import { toggleDarkmode } from "@/utils/darkmode";
+
 import "./Navbar.scss";
 
 const routes = [
@@ -10,7 +12,7 @@ const routes = [
   { path: "/blog", title: "Blog", icon: BsCode },
 ];
 
-const routeToLink = ({ path, icon, title }: typeof routes[number]) => (
+const routeToLink = ({ path, icon, title }: (typeof routes)[number]) => (
   <Link className="navbar-link" to={path} activeClassName="active">
     {icon({})}
     <h4 className="navbar-link-name">{title}</h4>

@@ -49,7 +49,19 @@
   h1:hover,
   h1:active {
     cursor: default;
-    background: linear-gradient(to right, #f03, #30f, #00ff9d, #30f, #fff, #f03, #30f, #00ff9d, #30f, #f03);
+    background: linear-gradient(
+      to right,
+      #f03,
+      #30f,
+      #00ff9d,
+      #30f,
+      #fff,
+      #f03,
+      #30f,
+      #00ff9d,
+      #30f,
+      #f03
+    );
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;

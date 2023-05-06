@@ -1,12 +1,12 @@
+import { Link } from "gatsby";
 import React from "react";
-import { Page } from "../components/Page";
+
+import { Page } from "@/components/Page";
 
 export default () => (
   <Page>
-    <h1>Four 'oh four</h1>
+    <h1>four 😵 four</h1>
     <h4>Can't find this page.</h4>
-    <a href="/">
-      <span className="">Try going home?</span>
-    </a>
+    <Link to="/">Try going home?</Link>
   </Page>
 );
