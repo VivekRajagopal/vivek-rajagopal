@@ -14,7 +14,9 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "build-sass": "node-sass",
-    "lint:write": "prettier --write \"./src/**/*.{ts,tsx,js,jsx,md,mdx,css,scss,json}\""
+    "lint:check": "prettier --check \"./src/**/*.{ts,tsx,js,jsx,md,mdx,css,scss,json}\"",
+    "lint:write": "prettier --write \"./src/**/*.{ts,tsx,js,jsx,md,mdx,css,scss,json}\"",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@fontsource/lato": "^4.4.5",
@@ -40,6 +42,12 @@
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.1.1",
     "@types/react-helmet": "6.1.1",
-    "node-sass": "^6.0.1"
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.2",
+    "node-sass": "^6.0.1",
+    "prettier": "^2.8.8"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx,md,mdx,css,scss,json}": "prettier --write"
   }
 }
