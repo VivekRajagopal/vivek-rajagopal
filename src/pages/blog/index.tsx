@@ -45,6 +45,7 @@ const BlogPage = () => {
       <div className="blogs-list">
         {published.blogs.map(({ frontmatter }) => (
           <BlogArticleCard
+            key={frontmatter.path}
             className="blog-item"
             title={frontmatter.title}
             datePublished={new Date(frontmatter.date)}
