@@ -133,15 +133,6 @@ const ViewportProvider: React.FC<ViewportProps> = ({
     lastPan.current = null;
   };
 
-  const getViewportSize = (): Point => {
-    const target = ref.current;
-    if (!target) {
-      return new Point(0, 0);
-    }
-    const { width, height } = target.getBoundingClientRect();
-    return new Point(width, height);
-  };
-
   const minZoom = MinZoomFactor * baseScale;
   const maxZoom = MaxZoomFactor * baseScale;
 
@@ -164,27 +155,6 @@ const ViewportProvider: React.FC<ViewportProps> = ({
 
     ev.preventDefault();
     ev.stopPropagation();
-  };
-
-  const setTransform = (pan: Point, scale: number) => {
-    if (!ref.current || !gref.current) return;
-
-    const viewportSize = getViewportSize();
-    const viewPan = pan.translate(new Point(viewportSize.x / 2, viewportSize.y / 2));
-
-    const m = ref.current.createSVGMatrix();
-    const tm = m.translate(viewPan.x, viewPan.y).scale(scale);
-
-    const transform = gref.current!.transform.baseVal.createSVGTransformFromMatrix(tm);
-
-    gref.current!.transform.baseVal.clear();
-    gref.current!.transform.baseVal.appendItem(transform);
-
-    const limitedScale = Math.min(maxZoom, Math.max(minZoom, scale));
-    const displayGridSpacing = baseScale * (limitedScale / baseScale);
-
-    ref.current.style.backgroundPosition = `${viewPan.x}px ${viewPan.y}px`;
-    ref.current.style.backgroundSize = `${displayGridSpacing}px ${displayGridSpacing}px`;
   };
 
   const gridSize = 100 * scale;
