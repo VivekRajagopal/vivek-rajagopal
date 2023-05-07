@@ -69,6 +69,22 @@
     background-size: 200% 100%;
     transform: scale(1.2);
   }
+
+  svg {
+    color: lighten($primary, 20);
+  }
+
+  img.link {
+    opacity: 0.8;
+
+    &:hover {
+      opacity: 0.9;
+    }
+
+    &:active {
+      opacity: 1;
+    }
+  }
 }
 
 @keyframes rainbow_animation {
