@@ -1,0 +1,45 @@
+svg.viewport {
+  border: 2px solid #ddd;
+  background-image: linear-gradient(0deg, #ddd 1px, transparent 1px),
+    linear-gradient(90deg, #ddd 1px, transparent 1px);
+
+  cursor: grab;
+
+  shape-rendering: geometricPrecision;
+
+  .darkmode & {
+    border-color: #222;
+    background-image: linear-gradient(0deg, #222 1px, transparent 1px),
+      linear-gradient(90deg, #222 1px, transparent 1px);
+  }
+}
+
+svg.viewport:active {
+  cursor: grabbing;
+}
+
+.viewport-control {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  * {
+    margin: 0;
+  }
+}
+
+.viewport-debug {
+  font-family: monospace;
+  margin: 0.25rem 0;
+}
+
+svg text {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+svg text::selection {
+  background: none;
+}

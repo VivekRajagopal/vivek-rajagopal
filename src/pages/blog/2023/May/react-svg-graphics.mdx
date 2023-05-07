@@ -1,0 +1,163 @@
+---
+title: 2D Graphics with React and SVG
+path: /blog/2023/May/react-svg-graphics
+date: 2023-05-06
+description: A rich 2D CAD graphics experience with React and SVG
+---
+
+import { Page } from "@/components/Page.tsx";
+import ReactSvgGraphics from "@/components/toys/react-svg-graphics/ReactSvgGraphics.tsx";
+import "@/styles/Blog.scss";
+
+import DriveclearDemoV1 from "./driveclear-demo-v1.gif";
+
+<Page>
+
+<h1>{props.pageContext.frontmatter.title}</h1>
+
+Off to the side, I've been buliding and maintaining my commercial engineering app
+[Drive Clear](https://driveclear.app) that helps engineers design vehicle driveways. A core part of
+the experiences is a 2D Graphics view, which displays all the engineering geometry and annotations
+(dimensions, labels, etc). This graphics display allows the user to zoom and pan within the view,
+and provides a kind of "CAD like" experience.
+
+<img src={DriveclearDemoV1} />
+
+Back when I started the project, after some shopping around, I settled on PaperJS as the graphics
+library. As a bonus, it also came with robust geometry clipping functions, for calculating
+intersections and unions. This was sitting inside a React app, and updates to the PaperJS view was
+done imperatively.
+
+At the time these were acceptable choices - they kept velocity high. But as time's gone on, it's
+become more difficult to ship new features because of the vendor lock-in with
+[PaperJS](http://paperjs.org/), and the imperative updates to the view.
+
+## The Ideal State
+
+In an ideal world, being able to describe the geometry in a declarative way with React JSX like
+syntax would be fantastic. This would allow for a more declarative approach to laying out the
+graphics viewport elements like a document, **and** drive the view from the state of the app and
+whatever geometric calculations were needed. Something like:
+
+```jsx
+<Viewport>
+  <Vehicle position={new Point(0, 0)} rotation={12} />
+  <Surface points={designSurfacePoints} stroke="blue" strokeWidth={2} />
+</Viewport>
+```
+
+Some more shopping later, I came across [FlattenJS](https://github.com/alexbol99/flatten-js) a pure
+calculation only library for 2D geometry. Great! This would decouple the geometric representation
+from the view and allow for a more declarative approach to rendering elements.
+
+The final piece of the puzzle was rendering the view itself. It was a question between SVG and
+Canvas. Canvas is a bit more performant, but SVG is more declarative. In the end I decided to go
+with SVG to _index_ a little more on the declarative side, and allow hooking into "browser-native"
+events like `onClick` and `onMouseOver` of the SVG elements.
+
+## Initial Approach
+
+Typically with 2D Graphics rendering, you have a world space coordinate system, and a view space
+coordinate system. In world space coordinate, we would probably represent 1-unit as 1-meter, and
+upwards in the y-axis is positive. In view space, `{ x: 0, y: 0 }` is typically in the top-left
+corner, and _downwards_ in the y-axis is positive.
+
+The initial approach was to use React context to hold the transformation data between world and view
+space. The transformation data being an Affine Matrix, which is a 3x3 matrix that can represent
+translation, rotation, and scaling.
+
+Then each geometric element is a just a React component consuming this context to return an SVG
+element in view space. And.. it was half decent!
+
+<ReactSvgGraphics />
+
+The Grid itself is just a css background-image. The viewport and its elements are decleratively laid
+out as;
+
+```tsx
+<ViewportProvider
+  id="viewport"
+  baseScale={BaseScale}
+  style={{ height: "20rem" }}
+  header={<Header />}
+>
+  <SvgCircle center={new Point(0, 0)} radius={50} />
+  <SvgCircle center={new Point(20, 0)} radius={40} />
+  <SvgCircle center={new Point(-100, 20)} radius={25} />
+</ViewportProvider>
+```
+
+Super maintainable 🤙 -
+[Get the source code](https://github.com/VivekRajagopal/vivek-rajagopal/blob/main/src/components/toys/react-svg-graphics/ReactSvgGraphics.tsx)
+
+## But.
+
+It wasn't as performant as it could be 😞 - an issue I only discovered when I tested the rewrite on
+an old laptop. Unfortunately, I couldn't compromise on the performance, especially since I had a
+benchmark in the existing PaperJS imperative approach.
+
+Drive Clear will render a large number of polygons as part of the engineering design that it does.
+Each polygon needs each of its points to be transformed from world space to view space... and each
+pan event would trigger this transformation and re-render... and we can see where this is going.
+
+It was noticibly laggy when panning the view, which is a pretty critical action in the app 😬
+
+## The Optimisation
+
+Well, if performance is struggling due to panning, then can we optimise for that? What if we offload
+the transformation to the browser in the form of CSS transformations? This would take it out of the
+React render cycle, which is optimised for reactivity and your standard HTML elements, not reactive
+graphics really.
+
+To take it a step further, let's do _this specific transformation_ imperatively, out of the React
+render logic. That should eliminate any React render cycle overhead and re-renders of child
+components, and we're just doing synchronous DOM updates. To get it right, the transformation was
+applied to a root `<g>` element inside the `<svg>` element, with all the geometry rendered inside
+it. So the transformation from world space to view space happens only once on this root element. All
+child elements are simply rendered in world space, and there's no need to listen to pan events and
+re-render each time.
+
+The final DOM transformation looks a little like this;
+
+```ts
+const setTransform = (pan: Point, scale: number) => {
+  if (!svgRef.current || !groupRef.current) return;
+
+  const viewportSize = getViewportSize();
+  const viewPan = pan.translate(new Point(viewportSize.x / 2, viewportSize.y / 2));
+
+  const m = svgRef.current.createSVGMatrix();
+  const tm = m.translate(viewPan.x, viewPan.y).scale(scale);
+
+  const transform = groupRef.current!.transform.baseVal.createSVGTransformFromMatrix(tm);
+
+  groupRef.current!.transform.baseVal.clear();
+  groupRef.current!.transform.baseVal.appendItem(transform);
+
+  const limitedScale = Math.min(maxZoom, Math.max(minZoom, scale));
+  const displayGridSpacing = baseScale * (limitedScale / baseScale);
+
+  svgRef.current.style.backgroundPosition = `${viewPan.x}px ${viewPan.y}px`;
+  svgRef.current.style.backgroundSize = `${displayGridSpacing}px ${displayGridSpacing}px`;
+};
+```
+
+I ended up using RxJS to still get reactivity on pan and scale events, and trigger `setTransform` in
+the subscription.
+
+Yes it's a little ugly and goes against the declerative principle, but it's isolated to this one
+instance and it's a vital performance optimisation. I'm happy to make the trade-off here.
+
+---
+
+The rewrite has been released 🚀 and it's working well. It's now much easier to lay out new
+geometry, and with geometry being driven by the state of the app, it's much easier to reason about
+which helps with features and bug fixes.
+
+But if I could redo this journey, I would be placing more emphasis on performance and functionality
+parity with the existing PaperJS approach. I did do a POC before doing the rewrite, but I didn't
+spend enough time testing it's performance with real use-cases seen in Drive Clear.
+
+I'm happy with the outcome though, and I'm looking forward to adding more features to the app 🤓
+
+</Page>
