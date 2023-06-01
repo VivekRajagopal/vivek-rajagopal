@@ -1,6 +1,6 @@
 {
   "name": "vivek-rajagopal",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "private": true,
   "description": "Vivek Rajagopal personal website",
   "author": "Vivek Rajagopal",
@@ -11,6 +11,7 @@
     "develop": "gatsby develop",
     "start": "gatsby develop",
     "build": "gatsby build",
+    "build:docker": "gatsby build --prefix-paths",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "build-sass": "node-sass",

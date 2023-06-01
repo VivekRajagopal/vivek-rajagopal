@@ -3,6 +3,7 @@ module.exports = {
     title: "Vivek Rajagopal",
     siteUrl: "https://vivekrajagopal.dev",
   },
+  pathPrefix: "/me",
   plugins: [
     {
       resolve: "gatsby-plugin-root-import",
