@@ -1,6 +1,5 @@
 import { Link } from "gatsby";
 import React from "react";
-import { BsCode, BsPersonFill } from "react-icons/bs";
 import { CgDarkMode } from "react-icons/cg";
 
 import { toggleDarkmode } from "@/utils/darkmode";
@@ -8,22 +7,25 @@ import { toggleDarkmode } from "@/utils/darkmode";
 import "./Navbar.scss";
 
 const routes = [
-  { path: "/", title: "Intro", icon: BsPersonFill },
-  { path: "/blog", title: "Blog", icon: BsCode },
+  { path: "/", title: "Intro" },
+  { path: "/blog", title: "Blog" },
 ];
 
-const routeToLink = ({ path, icon, title }: (typeof routes)[number]) => (
+const RouteLink = ({ path, title }: (typeof routes)[number]) => (
   <Link className="navbar-link" to={path} activeClassName="active">
-    {icon({})}
-    <h4 className="navbar-link-name">{title}</h4>
+    <span className="navbar-link-name">{title}</span>
   </Link>
 );
 
-export const Navbar = () => (
-  <div className="navbar-container">
-    {routes.map(routeToLink)}
-    <span className="navbar-link darkmode-toggle" onClick={() => toggleDarkmode()}>
-      <CgDarkMode />
-    </span>
-  </div>
-);
+export const Navbar = () => {
+  return (
+    <nav className="navbar-container">
+      {routes.map((route) => (
+        <RouteLink key={route.path} {...route} />
+      ))}
+      <span className="navbar-link darkmode-toggle" onClick={() => toggleDarkmode()}>
+        <CgDarkMode />
+      </span>
+    </nav>
+  );
+};

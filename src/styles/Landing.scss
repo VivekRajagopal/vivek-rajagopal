@@ -13,10 +13,9 @@
   }
 
   img.avatar {
-    height: 8rem;
+    height: 6rem;
     width: auto;
     align-self: center;
-    margin: 1rem 0;
 
     .darkmode &.default {
       display: none;
@@ -33,7 +32,7 @@
 
   img.link {
     margin: 0 1rem;
-    height: 3rem;
+    height: 2rem;
     width: auto;
     padding: 0.25rem;
 
@@ -42,32 +41,33 @@
     }
   }
 
-  h1 {
-    transition: all 180ms;
+  .heading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
-  h1:hover,
-  h1:active {
-    cursor: default;
-    background: linear-gradient(
-      to right,
-      #f03,
-      #30f,
-      #00ff9d,
-      #30f,
-      #fff,
-      #f03,
-      #30f,
-      #00ff9d,
-      #30f,
-      #f03
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    animation: rainbow_animation 360ms ease-in-out infinite;
-    background-size: 200% 100%;
-    transform: scale(1.2);
+  $countLettersVivek_Rajagopal: 5 + 1 + 9;
+  h1:hover {
+    span {
+      animation: rainbow_letter 0.8s step-end infinite;
+    }
+
+    @for $i from 1 through $countLettersVivek_Rajagopal {
+      span:nth-child(#{$i}) {
+        animation-delay: 0.1s * $i;
+      }
+    }
+  }
+
+  h1:hover span:hover {
+    animation-play-state: paused;
+    color: $primary;
+
+    .darkmode & {
+      color: white;
+    }
   }
 
   svg {
@@ -87,11 +87,20 @@
   }
 }
 
-@keyframes rainbow_animation {
+@keyframes rainbow_letter {
   0% {
-    background-position: 0 0;
+    color: lighten($color: $primary, $amount: 20);
+  }
+  25% {
+    color: lighten($color: $primary, $amount: 40);
+  }
+  50% {
+    color: lighten($color: $primary, $amount: 10);
+  }
+  75% {
+    color: lighten($color: $primary, $amount: 30);
   }
   100% {
-    background-position: 100% 0%;
+    color: lighten($color: $primary, $amount: 20);
   }
 }

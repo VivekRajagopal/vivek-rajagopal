@@ -5,12 +5,16 @@ date: 2021-11-05
 description: A simple JSON parser written in FSharp and deployed as a JavaScript app.
 ---
 
+import { BlogTitle } from "@/components/BlogTitle/BlogTitle.tsx";
 import { Page } from "@/components/Page.tsx";
 import "@/styles/Blog.scss";
 
 <Page>
 
-<h1>{props.pageContext.frontmatter.title}</h1>
+<BlogTitle
+  title={props.pageContext.frontmatter.title}
+  datePublished={props.pageContext.frontmatter.date}
+/>
 
 This is an overview of parsing JSON with FSharp - it is not a step-by-step tutorial. For that I
 recommend reading Scott Wlaschin's four-part tutorial on

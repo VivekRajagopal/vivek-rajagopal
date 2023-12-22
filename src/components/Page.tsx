@@ -15,10 +15,8 @@ export const Page = ({
       <Helmet>
         <title>Vivek Rajagopal</title>
       </Helmet>
-      <main className={className}>
-        <Navbar />
-        {children}
-      </main>
+      <Navbar />
+      <main className={className}>{children}</main>
     </>
   );
 };
