@@ -62,11 +62,10 @@
   }
 
   h1:hover span:hover {
-    animation-play-state: paused;
-    color: $primary;
+    color: $primary !important;
 
     .darkmode & {
-      color: white;
+      color: white !important;
     }
   }
 
