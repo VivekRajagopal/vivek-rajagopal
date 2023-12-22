@@ -7,12 +7,17 @@ import { toggleDarkmode } from "@/utils/darkmode";
 import "./Navbar.scss";
 
 const routes = [
-  { path: "/", title: "Intro" },
-  { path: "/blog", title: "Blog" },
+  { path: "/", title: "Intro", partiallyActive: false },
+  { path: "/blog", title: "Blog", partiallyActive: true },
 ];
 
-const RouteLink = ({ path, title }: (typeof routes)[number]) => (
-  <Link className="navbar-link" to={path} activeClassName="active">
+const RouteLink = ({ path, title, partiallyActive }: (typeof routes)[number]) => (
+  <Link
+    className="navbar-link"
+    to={path}
+    activeClassName="active"
+    partiallyActive={partiallyActive}
+  >
     <span className="navbar-link-name">{title}</span>
   </Link>
 );
