@@ -27,6 +27,10 @@
     padding: 2rem;
 
     &:hover {
+      background-color: transparentize($primary, 0.9);
+    }
+
+    &:active {
       border-color: $primary;
     }
   }

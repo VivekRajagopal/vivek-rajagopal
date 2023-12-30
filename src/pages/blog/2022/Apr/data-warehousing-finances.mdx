@@ -5,12 +5,16 @@ date: 2022-04-18
 description: Using TypeScript and Cloudflare Workers to Data Warehouse my Banking Transactions.
 ---
 
+import { BlogTitle } from "@/components/BlogTitle/BlogTitle.tsx";
 import { Page } from "@/components/Page.tsx";
 import "@/styles/Blog.scss";
 
 <Page>
 
-<h1>{props.pageContext.frontmatter.title}</h1>
+<BlogTitle
+  title={props.pageContext.frontmatter.title}
+  datePublished={props.pageContext.frontmatter.date}
+/>
 
 Living in Australia, I have access to the [Up Banking](https://up.com.au/) app. Apart from having a
 nice user experience, it also has a Developer API so I can query all my Account and Transaction

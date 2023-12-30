@@ -5,12 +5,16 @@ date: 2019-03-17
 description: An explanation of vehicle clearance templates used by Australian Standards 2890.1.
 ---
 
+import { BlogTitle } from "@/components/BlogTitle/BlogTitle.tsx";
 import { Page } from "@/components/Page.tsx";
 import "@/styles/Blog.scss";
 
 <Page>
 
-<h1>{props.pageContext.frontmatter.title}</h1>
+<BlogTitle
+  title={props.pageContext.frontmatter.title}
+  datePublished={props.pageContext.frontmatter.date}
+/>
 
 This post is a deviation from my usual. I'll be discussing the aspects of the **Australian Standards
 for Off-Street Car Parking** (AS 2890.1 - 2004). Namely, the vehicle clearance templates as defined

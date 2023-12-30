@@ -5,6 +5,7 @@ date: 2023-05-06
 description: A rich 2D CAD graphics experience with React and SVG
 ---
 
+import { BlogTitle } from "@/components/BlogTitle/BlogTitle.tsx";
 import { Page } from "@/components/Page.tsx";
 import ReactSvgGraphics from "@/components/toys/react-svg-graphics/ReactSvgGraphics.tsx";
 import "@/styles/Blog.scss";
@@ -13,9 +14,12 @@ import DriveclearDemoV1 from "./driveclear-demo-v1.gif";
 
 <Page>
 
-<h1>{props.pageContext.frontmatter.title}</h1>
+<BlogTitle
+  title={props.pageContext.frontmatter.title}
+  datePublished={props.pageContext.frontmatter.date}
+/>
 
-Off to the side, I've been buliding and maintaining my commercial engineering app
+Off to the side, I've been building and maintaining my commercial engineering app
 [Drive Clear](https://driveclear.app) that helps engineers design vehicle driveways. A core part of
 the experiences is a 2D Graphics view, which displays all the engineering geometry and annotations
 (dimensions, labels, etc). This graphics display allows the user to zoom and pan within the view,

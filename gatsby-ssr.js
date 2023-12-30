@@ -16,5 +16,4 @@ const DarkmodeScript = () => {
 
 export const onRenderBody = ({ setPreBodyComponents, setBodyAttributes }) => {
   setPreBodyComponents(<DarkmodeScript key="darkmode-script" />);
-  setBodyAttributes({ className: "darkmode" });
 };

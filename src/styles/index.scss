@@ -8,8 +8,7 @@ body {
   padding: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 1.16rem;
-  font-family: "Roboto";
+  font-family: "Roboto Mono", monospace;
 
   &.darkmode {
     background-color: $darkmode-bg;
@@ -23,8 +22,8 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Lato", sans-serif;
-  font-weight: bold;
+  font-family: "Inconsolata", monospace;
+  font-weight: 700;
 }
 
 h1 {
@@ -37,15 +36,10 @@ h1 {
   -ms-user-select: none;
   user-select: none;
 
-  background-color: transparentize($color: $primary, $amount: 0.88);
   font-weight: 600;
   padding: 1.5rem 0;
   margin: 1rem 0;
-  letter-spacing: 0.1rem;
-
-  .darkmode & {
-    background-color: $primary;
-  }
+  box-sizing: content-box;
 }
 
 p {
@@ -102,7 +96,6 @@ pre {
 a {
   color: #06f;
   text-decoration: none;
-  font-weight: 500;
 
   .darkmode & {
     color: lighten($color: #06f, $amount: 15);
@@ -114,10 +107,6 @@ a:hover {
   .darkmode & {
     color: $primary-light;
   }
-}
-
-a:active {
-  outline: 2px solid transparentize($color: $primary, $amount: 0.5);
 }
 
 s {

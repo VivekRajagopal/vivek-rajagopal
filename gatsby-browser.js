@@ -1,5 +1,5 @@
-import "@fontsource/lato/900.css";
-import "@fontsource/roboto/400.css";
+import "@fontsource/inconsolata/700.css";
+import "@fontsource/roboto-mono/400.css";
 
-import "./src/styles/index.scss";
 import "./src/styles/App.scss";
+import "./src/styles/index.scss";
