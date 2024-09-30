@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import "theme";
 @import "button";
 
@@ -148,3 +152,4 @@ td {
     font-size: 2rem;
   }
 }
+
