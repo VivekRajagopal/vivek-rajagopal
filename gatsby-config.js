@@ -41,6 +41,17 @@ module.exports = {
     },
     "gatsby-plugin-mdx",
     {
+      resolve: 'gatsby-plugin-postcss',
+      options: {
+        postCssPlugins: [require('tailwindcss'), require('autoprefixer')],
+    "gatsby-plugin-mdx",
+    {
+      resolve: 'gatsby-plugin-postcss',
+      options: {
+        postCssPlugins: [require('tailwindcss'), require('autoprefixer')],
+      },
+    },
+    {
       resolve: "gatsby-source-filesystem",
       options: {
         name: "pages",
@@ -50,3 +61,4 @@ module.exports = {
     },
   ],
 };
+

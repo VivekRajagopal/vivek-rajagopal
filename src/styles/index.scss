@@ -1,18 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import "theme";
 @import "button";
 
 body {
-  display: flex;
-  justify-content: center;
-  margin: 0;
-  padding: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-family: "Roboto Mono", monospace;
+  @apply flex justify-center m-0 p-0 antialiased font-roboto-mono;
 
   &.darkmode {
-    background-color: $darkmode-bg;
-    color: $darkmode-color;
+    @apply bg-darkmode-bg text-darkmode-color;
   }
 }
 
@@ -22,24 +19,11 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Inconsolata", monospace;
-  font-weight: 700;
+  @apply font-inconsolata font-bold;
 }
 
 h1 {
-  font-size: 2.4rem;
-  text-align: center;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-
-  font-weight: 600;
-  padding: 1.5rem 0;
-  margin: 1rem 0;
-  box-sizing: content-box;
+  @apply text-2xl text-center select-none font-semibold py-6 my-4 box-content;
 }
 
 p {
@@ -52,18 +36,12 @@ em {
 }
 
 main {
-  width: 800px;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-
-  padding: 0 1rem;
+  @apply w-800px flex flex-col items-stretch px-4;
 }
 
 @media (max-width: 900px) {
   main {
-    width: 90vw;
-    font-size: 90%;
+    @apply w-9/10 text-sm;
   }
 }
 
@@ -94,18 +72,17 @@ pre {
 }
 
 a {
-  color: #06f;
-  text-decoration: none;
+  @apply text-blue-600 no-underline;
 
   .darkmode & {
-    color: lighten($color: #06f, $amount: 15);
+    @apply text-blue-400;
   }
 }
 
 a:hover {
-  color: $primary;
+  @apply text-primary;
   .darkmode & {
-    color: $primary-light;
+    @apply text-primary-light;
   }
 }
 
@@ -148,3 +125,4 @@ td {
     font-size: 2rem;
   }
 }
+
