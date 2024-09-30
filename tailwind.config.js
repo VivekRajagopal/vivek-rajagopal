@@ -8,4 +8,3 @@ module.exports = {
   },
   plugins: [], // Add any plugins here
 };
-
